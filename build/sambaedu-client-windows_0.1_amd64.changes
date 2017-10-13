@@ -1,0 +1,22 @@
+Format: 1.8
+Date: Fri, 06 Oct 2017 10:59:56 +0200
+Source: sambaedu-client-windows
+Binary: sambaedu-client-windows
+Architecture: all
+Version: 0.1
+Distribution: unstable
+Urgency: medium
+Maintainer: Denis Bonnenfant <denis.bonnenfant@diderot.org>
+Changed-By: Denis Bonnenfant <denis.bonnenfant@diderot.org>
+Description:
+ sambaedu-client-windows - Scripts d'installation automatique de Windows à partir de SambaEd
+Changes:
+ sambaedu-client-windows (0.1) unstable; urgency=medium
+ .
+   * Initial Release.
+Checksums-Sha1:
+ 759be5af89c00a79a04d9a0ae4b5767cd2c66ae2 826850 sambaedu-client-windows_0.1_all.deb
+Checksums-Sha256:
+ 77668f8fd87a2ab459fcb00a19d43001ea5b246e60618fc899990ff6450303db 826850 sambaedu-client-windows_0.1_all.deb
+Files:
+ ef2a17b6d56cd33ce68b20822e5e5a63 826850 net optional sambaedu-client-windows_0.1_all.deb

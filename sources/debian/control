@@ -1,0 +1,17 @@
+Source: sambaedu-client-windows
+Section: net
+Priority: optional
+Maintainer: Denis Bonnenfant <denis.bonnenfant@diderot.org>
+Build-Depends: debhelper (>=9)
+Standards-Version: 3.9.6
+Homepage: <insert the upstream URL, if relevant>
+#Vcs-Git: git://github.com/SambaEdu/sambaedu-client-windows.git
+#Vcs-Browser: https://github.com/SambaEdu/sambaedu-client-windows.git
+
+Package: sambaedu-client-windows
+Architecture: all
+Depends: ${misc:Depends}, se3
+Description: Scripts d'installation automatique de Windows à partir de SambaEdu
+ Permet l'installation unattended, le clonage et la jonction au domaine d'un
+ poste Windows.
+ scripts basés sur Windows Setup / Sysprep pour une compatibilité maximale.

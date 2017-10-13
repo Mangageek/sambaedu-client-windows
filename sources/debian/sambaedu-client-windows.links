@@ -1,0 +1,6 @@
+/var/se3/unattended/install/os/Win10/sources/boot.wim /var/www/se3/ipxe/Win10/sources/boot.wim
+/var/se3/unattended/install/os/Win10/boot/bcd /var/www/se3/ipxe/Win10/boot/bcd
+/var/se3/unattended/install/os/Win10/boot/boot.sdi /var/www/se3/ipxe/Win10/boot/boot.sdi
+/tftpboot/ipxe.lkrn /var/www/se3/ipxe/ipxe.lkrn
+/var/se3/unattended/install/os/netinst /var/se3/unattended/install/os/Win10/sources/\$OEM\$/\$1/netinst
+/var/se3/unattended/install/os/netinst/se3w10-vars.cmd /var/www/se3/ipxe/Win10/se3w10-vars.cmd
