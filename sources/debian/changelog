@@ -1,3 +1,9 @@
+sambaedu-client-windows (0.2~) unstable; urgency=medium
+
+  * bug correction
+
+ -- Denis Bonnenfant <denis.bonnenfant@diderot.org>  Fri, 13 Oct 2017 12:00:39 +0200
+
 sambaedu-client-windows (0.1) unstable; urgency=medium
 
   * Initial Release.
