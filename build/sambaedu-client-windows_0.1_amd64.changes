@@ -15,8 +15,8 @@ Changes:
  .
    * Initial Release.
 Checksums-Sha1:
- 759be5af89c00a79a04d9a0ae4b5767cd2c66ae2 826850 sambaedu-client-windows_0.1_all.deb
+ 839862662558ed85598da4ab4d42af5cb1a89fd6 826874 sambaedu-client-windows_0.1_all.deb
 Checksums-Sha256:
- 77668f8fd87a2ab459fcb00a19d43001ea5b246e60618fc899990ff6450303db 826850 sambaedu-client-windows_0.1_all.deb
+ b659a3e75658a1cb40d76da5ad0d4769d378efbeeff4944ec27818dbb155b422 826874 sambaedu-client-windows_0.1_all.deb
 Files:
- ef2a17b6d56cd33ce68b20822e5e5a63 826850 net optional sambaedu-client-windows_0.1_all.deb
+ 044d53c53e4c754d3b9645f2f9017e43 826874 net optional sambaedu-client-windows_0.1_all.deb

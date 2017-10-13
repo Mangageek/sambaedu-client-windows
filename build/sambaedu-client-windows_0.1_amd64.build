@@ -86,7 +86,7 @@ W: sambaedu-client-windows: file-in-unusual-dir var/se3/unattended/install/os/ne
 W: sambaedu-client-windows: file-in-unusual-dir var/se3/unattended/install/os/netinst/se3w10s-1.cmd
 W: sambaedu-client-windows: file-in-unusual-dir var/se3/unattended/install/os/netinst/se3w10s-2.cmd
 W: sambaedu-client-windows: file-in-unusual-dir var/se3/unattended/install/os/netinst/se3w10s-3.cmd
-W: sambaedu-client-windows: file-in-unusual-dir var/se3/unattended/install/os/netinst/shutdowngpo.cmd
+W: sambaedu-client-windows: file-in-unusual-dir var/se3/unattended/install/os/netinst/shutdown.cmd.in
 W: sambaedu-client-windows: file-in-unusual-dir var/se3/unattended/install/os/netinst/sysprep.xml.in
 W: sambaedu-client-windows: file-in-unusual-dir var/se3/unattended/install/os/netinst/tiles.ps1
 W: sambaedu-client-windows: file-in-unusual-dir var/se3/unattended/install/os/netinst/unattend.xml.in
@@ -103,7 +103,6 @@ E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/ipxe/Win10/source
 E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/ipxe/Win10/sources/boot.wim
 E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/ipxe/Win10/upgrade.bat
 E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/ipxe/Win10/wimboot
-E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/ipxe/Win10/winpeshl -upg.ini
 E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/ipxe/Win10/winpeshl.ini
 E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/ipxe/boot.php
 E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/ipxe/ipxe-se3.png
@@ -119,10 +118,9 @@ E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/tftp/
 E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/tftp/action_config_w10_tftp.php
 E: sambaedu-client-windows: dir-or-file-in-var-www var/www/se3/tftp/action_unattend_w10_tftp.php
 W: sambaedu-client-windows: binary-without-manpage usr/bin/install-win-iso.sh
-W: sambaedu-client-windows: executable-not-elf-or-script var/www/se3/ipxe/Win10/winpeshl -upg.ini
-W: sambaedu-client-windows: executable-not-elf-or-script var/se3/unattended/install/os/netinst/se3sysprep.cmd
-W: sambaedu-client-windows: executable-not-elf-or-script var/www/se3/ipxe/Win10/wimboot
 W: sambaedu-client-windows: executable-not-elf-or-script var/www/se3/ipxe/Win10/install.bat
+W: sambaedu-client-windows: executable-not-elf-or-script var/se3/unattended/install/os/netinst/se3sysprep.cmd
 W: sambaedu-client-windows: executable-not-elf-or-script tftpboot/ipxe.lkrn
 W: sambaedu-client-windows: executable-not-elf-or-script var/www/se3/ipxe/Win10/winpeshl.ini
+W: sambaedu-client-windows: executable-not-elf-or-script var/www/se3/ipxe/Win10/wimboot
 Finished running lintian.
