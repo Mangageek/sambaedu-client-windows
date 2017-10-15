@@ -1,14 +1,18 @@
 :: lancement de sysprep
-:: le lecteur z: est normalement deja connecte lors du lancement de ce script
+::  est normalement deja connecte lors du lancement de ce script, et les privileges eleves
+::
+
 @echo off
 
-if not exist %systemdrive%\netinst md %systemdrive%\netinst
-copy z:\os\netinst\*.cmd %systemdrive%\netinst
-copy z:\os\netinst\*.ini %systemdrive%\netinst
-copy z:\os\netinst\*.vbs %systemdrive%\netinst
-copy z:\os\netinst\*.ps1 %systemdrive%\netinst
-copy z:\os\netinst\*.xml %systemdrive%\netinst
-copy z:\os\netinst\wget.exe %systemdrive%\netinst
+if [%~dp0]==[z:\os\netinst] (
+   echo erreur,  ce script doit etre lance depuis le disque local
+   pause
+   exit 1
+) 
+
+REG.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d "0" /F
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
+
 echo nettoyage wpkg
 :: on tue wpkg en cas de clonage
 schtasks /end /TN wpkg 2>NUL
@@ -23,6 +27,7 @@ del /s /f /q %windir%\system32\grouppolicy\*
 :: recup du nom si il existe
 if exist %systemdrive%\netinst\sysprep.txt goto sysprep
 :: si la machine est enregistree cela ne sert a rien, elle prendra son nom au boot
+if exist %systemdrive%\netinst\%computername% goto sysprep
 :: si elle n'est pas enregistrée on permet de le faire ici :
 set /P NEW_NAME=entrez le nom [%computername%]: || set NEW_NAME=%Computername%
 echo:%NEW_NAME%>%SystemDrive%\Netinst\sysprep.txt
@@ -31,10 +36,12 @@ echo:%NEW_NAME%>%SystemDrive%\Netinst\sysprep.txt
 type %SystemDrive%\Netinst\sysprep.txt
 :: sensé permettre à sysprep de fonctionner dans certains cas... Pas vu de différence !
 ::powershell -ExecutionPolicy ByPass -File c:\netinst\tiles.ps1
-start /wait %windir%\system32\sysprep\sysprep.exe /generalize /oobe /quit /unattend:c:\netinst\sysprep.xml
-if %ERRORLEVEL% neq 0 goto n else goto y
+%windir%\system32\sysprep\sysprep.exe /generalize /oobe /quit /unattend:c:\netinst\sysprep.xml
+set "ERR=%ERRORLEVEL%"
+if [%ERR%]==[0] goto y else goto n
 :n
-echo probleme sysprep, essayez de le resoudre avant de relancer ce script ! 
+echo probleme sysprep, essayez de le resoudre avant de relancer ce script !
+echo erreur : %ERR%
 pause
 exit 1
 :y

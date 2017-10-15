@@ -1,4 +1,5 @@
 :: Integration au SE3_DOMAIN : destine a etre lance au premier reboot par les GPO machine après renommage et modif par sysprep.sh
+:: ATTENTION le compte utilise DOIT etre administrateur, et l'UAC doit ere desactivee
 :: 
 :: SYNTAXE :
 :: shutdown.cmd 

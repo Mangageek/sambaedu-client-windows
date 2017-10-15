@@ -24,10 +24,10 @@ echo "set menu-timeout $menu_timeout\n";
 title("Menu");
 //echo "item --key 1 login (1) Authentication\n";
 //echo "item --key 2 Win7  (2) W7 wim\n";
-echo "item --key 3 Win10  (3) Install W10\n";
-echo "item --key 4 Win10up  (4) Upgrade W10\n";
-echo "item --key 5 Win10l  (5) boot W10 diskless\n";
-echo "item --key 8 Win10l2  (8) boot W10 diskless\n";
+echo "item --key 3 Win10  (3) Installation W10\n";
+echo "item --key 4 Win10up  (4) Mise a jour W10 (experimental!!!)\n";
+echo "item --key 5 Win10man  (5) Installation W10 manuelle\n";
+echo "item --key 8 Win10l2  (8) boot W10 diskless(experimental!!!)\n";
 echo "item --key 6 shell  (6) iPXE shell\n";
 echo "item --key 0 exit  (0) Exit iPXE and boot harddisk\n";
 
@@ -48,8 +48,8 @@ echo "chain --replace wimboot10.php\n";
 echo ":Win10up\n";
 echo "chain --replace wimboot10r.php\n";
 echo "boot\n";
-echo ":Win10l\n";
-echo "chain --replace win10diskless.php\n";
+echo ":Win10man\n";
+echo "chain --replace wimboot10man.php\n";
 echo ":Win10l2\n";
 echo "chain --replace win10diskless2.php\n";
 
