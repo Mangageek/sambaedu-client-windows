@@ -24,14 +24,15 @@ reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Pa
 echo preparation des GPO
 
 :: recherche du numero de version gpo et on l'incremente si il existe.
-for /f "tokens=3 delims= " %%a in ('reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\GPO-List\0" /v Version ^| findstr REG_DWORD ') do @set /a VERSION=~%%c+65537
-if "0%VERSION%"=="0" set VERSION=65537
+for /f "tokens=3 delims= " %%a in ('reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\GPO-List\0" /v Version ^| findstr REG_DWORD ') do @set "VERSION=%%a"
+if [%VERSION%]==[] (set "VERSION=0x10001") else (set /a "VERSION=VERSION+0x10001")
+echo gpo_version=%VERSION%
 :: creation des GPO minimales
-mkdir %SYSTEMROOT%\System32\GroupPolicy
-mkdir %SYSTEMROOT%\System32\GroupPolicy\Machine
-mkdir %SYSTEMROOT%\System32\GroupPolicy\Machine\Scripts
-mkdir %SYSTEMROOT%\System32\GroupPolicy\Machine\Scripts\Startup
-mkdir %SYSTEMROOT%\System32\GroupPolicy\Machine\Scripts\Shutdown
+if not exist %SYSTEMROOT%\System32\GroupPolicy mkdir %SYSTEMROOT%\System32\GroupPolicy
+if not exist %SYSTEMROOT%\System32\GroupPolicy\Machine mkdir %SYSTEMROOT%\System32\GroupPolicy\Machine
+if not exist %SYSTEMROOT%\System32\GroupPolicy\Machine\Scripts mkdir %SYSTEMROOT%\System32\GroupPolicy\Machine\Scripts
+if not exist %SYSTEMROOT%\System32\GroupPolicy\Machine\Scripts\Startup mkdir %SYSTEMROOT%\System32\GroupPolicy\Machine\Scripts\Startup
+if not exist %SYSTEMROOT%\System32\GroupPolicy\Machine\Scripts\Shutdown mkdir %SYSTEMROOT%\System32\GroupPolicy\Machine\Scripts\Shutdown
 
 echo [general]>%SYSTEMROOT%\System32\GroupPolicy\gpt.ini
 echo Version=%VERSION%>>%SYSTEMROOT%\System32\GroupPolicy\gpt.ini
@@ -64,35 +65,40 @@ echo.
 echo Mappage de la lettre Z: vers \\%NETBIOS_NAME%\install
 :: Pour une utilisation aisee des scripts wpkg lances par perso.bat
 
-if "x%Z%"=="x" set Z=Z:>NUL
-if "x%SOFTWARE%"=="x" set SOFTWARE=Z:\packages>NUL
-if "x%ComSpec%"=="x" set ComSpec=%SystemRoot%\system32\cmd.exe>NUL
+if [%Z%]==[] (set "Z=Z:">NUL)
+if [%SOFTWARE%]==[] (set "SOFTWARE=Z:\packages">NUL)
+if [%ComSpec%]==[] (set "ComSpec=%SystemRoot%\system32\cmd.exe">NUL)
 net use Z: \\%NETBIOS_NAME%\install %XPPASS% /user:%SE3_DOMAIN%\adminse3
 
 call %Z%\wpkg\initvars_se3.bat >NUL
 
 echo ############## INSTALLATION WPKG ENCHAINEE #########
 :: on verifie si wpkg est deja installe : si c'est le cas , c'est qu'il s'agit d'un clonage ou renommage.
-if exist %SystemRoot%\wpkg-client.vbs (
+if exist %SystemRoot%\wpkg-client.vbs (goto reinstw) else (goto instw)
+
+:reinstw
     ::  cas de clonage/changement de nom...
     echo reinitialisation de wpkg
     Set NoRunWpkgJS=1
     Set TaskUser=adminse3
     Set TaskPass=%XPPASS%
-    if exist Z:\wpkg\wpkg-repair.bat call Z:\wpkg\wpkg-repair.bat
+    if exist Z:\wpkg\wpkg-repair.bat call (Z:\wpkg\wpkg-repair.bat)
     echo.
-) else (
+    goto suite
+
+:instw
     :: if exist z:\wpkg\wpkg-se3.js cscript z:\wpkg\wpkg-se3.js /profile:unattended /synchronize /nonotify
     :: nouvelle installation : installer la tache wpkg sans la lancer 
     echo Installation de la tache planifiee wpkg sans execution immediate
     Set NoRunWpkgJS=1
     Set TaskUser=adminse3
     Set TaskPass=%XPPASS%
-    if exist Z:\wpkg\wpkg-install.bat call Z:\wpkg\wpkg-install.bat
+    if exist Z:\wpkg\wpkg-install.bat call (Z:\wpkg\wpkg-install.bat)
     echo.
     :: echo installation immediate du paquet wsusoffline
     :: if exist z:\wpkg\wpkg-se3.js cscript z:\wpkg\wpkg-se3.js /install:wsusoffline /nonotify
-)
+
+:suite
 echo WPKG SERA LANCE AU PROCHAIN REBOOT
 echo ################## FIN DE L'INSTALLATION WPKG ###############
 
@@ -103,7 +109,7 @@ if exist Z:\scripts\perso.bat (
     call Z:\scripts\perso.bat
     echo ############### FIN DES INSTRUCTIONS PERSONNELLES ######################
 ) ELSE (
-    echo Pas de commande personnaliseea lancer : pas de script Z:\scripts\perso.bat
+    echo Pas de commande personnalisee a lancer : pas de script Z:\scripts\perso.bat
 )
 
 :: accepter les drivers non signes
@@ -113,6 +119,9 @@ bcdedit.exe -set loadoptions DISABLE_INTEGRITY_CHECKS
 DISM /Online /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:z:os\Win10\sources\sxs
 
 echo ############## ACTIVATION WINDOWS #######
+:: si une cle est presente dans le bios, on la recupere. Fonctionne pour les postes initialement en W8 ou plus
+::TODO 
+:: permettre de recuperer une cle w7 dans la base ldap ?
 powershell -ExecutionPolicy ByPass -File activation.ps1
 
 echo ### activation des tuiles pour les utilisateurs du domaine ####

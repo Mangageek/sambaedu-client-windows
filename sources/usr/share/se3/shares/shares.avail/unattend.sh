@@ -43,17 +43,21 @@ new_machine=$(echo "select name from se3_dhcp where ip = '$ip'" | mysql -h $dbho
 
 if  [ -z "$new_machine" ]; then
         new_machine=$(ldapsearch -xLLL "(ipHostNumber=$ip)" cn | grep "^cn:" | sed "s/^cn: \(.*\)$/\1/" | tail -n1)
-        [ -z "$new_machine" ] && exit 0
+        [ -z "$new_machine" ] && echo "Pas d'enregistrement pour $machine $ip" && exit 0
 fi
-
-if [ "$machine" != "$new_machine" ];  then
-        echo  "$new_machine
-" > /var/se3/unattended/install/os/netinst/$machine.txt
-        todos /var/se3/unattended/install/os/netinst/$machine.txt
-        chown adminse3 /var/se3/unattended/install/os/netinst/$machine.txt
-        echo "renommage de $machine en $new_machine">>$SE3LOG
+if [ "$1" == "adminse3" ]; then
+	if [ "$machine" != "$new_machine" ];  then
+        	echo "renommage de $machine en $new_machine">>$SE3LOG
+	else
+ 		grep -l "$machine" /var/se3/unattended/install/os/netinst/*.txt 2>/dev/null | xargs rm -f 
+		echo "$machine est déjà enregistrée">>$SE3LOG
+	fi
+	echo  "$new_machine
+	" > /var/se3/unattended/install/os/netinst/$ip.txt
+	todos /var/se3/unattended/install/os/netinst/$ip.txt
+	chown adminse3 /var/se3/unattended/install/os/netinst/$ip.txt
 else
-        grep -l "$machine" /var/se3/unattended/install/os/netinst/*.txt 2>/dev/null | xargs rm -f 
+	grep -l "$machine" /var/se3/unattended/install/os/netinst/*.txt 2>/dev/null | xargs rm -f 
 fi
 exit 0
 

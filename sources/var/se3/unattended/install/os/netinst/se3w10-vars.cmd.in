@@ -4,3 +4,4 @@ set "NETBIOS_NAME=__NETBIOS_NAME__"
 set "XPPASS=__XPPASS__"
 set "SE3IP=__SE3IP__"
 set "URLSE3=__URLSE3__"
+for /f "tokens=2 delims=[]" %%i in ('nbtstat -a %computername% ^|find "Adresse IP"') do (set "IP=%%i")

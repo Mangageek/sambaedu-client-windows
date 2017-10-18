@@ -10,7 +10,7 @@ set BILAN=%2%
 echo ############### Remontee des rapports pour les actions se3 ##################
 :: Récupération des heures laissées sur le disque à divers moments de l'install
 if not exist %SystemDrive%\netinst\debutwin.txt Goto erreurdebutwin
-for /F "tokens=1 delims= " %%o in (%SystemDrive%\netinst\debutwin.txt) do (set DEBUTWIN=%%o)
+for /F "tokens=1 delims= " %%o in (%SystemDrive%\netinst\debutwin.txt) do (set "DEBUTWIN=%%o")
 echo Heure de debut d'installation windows : %DEBUTWIN%
 del /F /Q %SystemDrive%\netinst\debutwin.txt
 Goto findebutwin
@@ -21,7 +21,7 @@ set DEBUTWIN=ABS
 
 :findebutwin
 
-if not exist %SystemDrive%\netinst\finwin.txt Goto erreurfinwin
+if not exist %SystemDrive%\netinst\finwin.txt (Goto erreurfinwin)
     for /F "tokens=1 delims= " %%o in (%SystemDrive%\netinst\finwin.txt) do (set FINWIN=%%o)
     echo Heure de fin d'installation windows : %FINWIN%
     del /F /Q %SystemDrive%\netinst\finwin.txt
@@ -36,13 +36,13 @@ if not exist %SystemDrive%\netinst\finwin.txt Goto erreurfinwin
 :finfinwin
 
 echo Heure de fin d'installation se3 et programmes wpkg generee : %FINWIN%
-for /f "delims=\,  tokens=1" %%a in ('getmac /NH /FO csv' )  do @set MACADDR=%%a
+for /f "delims=\,  tokens=1" %%a in ('getmac /NH /FO csv' )  do (@set MACADDR=%%a)
 echo Adresse MAC de la carte ayant servi a l'install  : %MACADDR%
-if not exist %SystemDrive%\netinst\wget.exe goto notexistwget
+if not exist %SystemDrive%\netinst\wget.exe (goto notexistwget)
 	call %SystemDrive%\netinst\se3w10-vars.cmd > NUL
 	echo Recuperation de l'adresse de l'interface SE3 : %urlse3%
 	echo Remontee du rapport d'install sur le SE3...
-	if "%BILAN%"=="y" goto bilanyes else goto bilano
+	if "%BILAN%"=="y" (goto bilanyes) else (goto bilano)
 	:bilanyes
 		echo Succes total de l'installation transmis au SE3.
 		%SystemDrive%\netinst\wget.exe --no-cache --no-proxy -O %SystemDrive%\netinst\logs\rapport.htm -t 1 %urlse3%/tftp/remontee_udpcast.php?num_op=1^&debut=%DEBUTWIN%^&fin=%FINWIN%^&succes=y^&mac=%MACADDR%^&umode=%ACTION%

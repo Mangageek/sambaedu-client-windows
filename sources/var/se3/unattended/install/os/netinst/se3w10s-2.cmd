@@ -11,10 +11,11 @@ net use * /delete /yes
 echo on attend un peu avant d'integrer le poste...
 ping -n 10 %SE3IP%
 cscript joindomain.vbs /d:"%SE3_DOMAIN%" /p:"%XPPASS%" 
-if [%errorlevel%]==[0] goto ok
-echo ERREUR %errorlevel% LORS DE LA JONCTION A %SE3_DOMAIN% >> logs\unattend.log
+set "ERR=%errorlevel%"
+if [%ERR%]==[0] (goto ok)
+echo ERREUR %ERR% LORS DE LA JONCTION A %SE3_DOMAIN% >> logs\unattend.log
 set /P OK=tenter a nouveau l'integration (O/n)?
-if %OK% neq n goto integ
+if not [%OK%]==[n] (goto integ)
 set /A "PHASE=PHASE-1"
 exit
 

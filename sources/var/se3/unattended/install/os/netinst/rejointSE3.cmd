@@ -13,7 +13,7 @@ set NETINST=%~dp0
 @echo off
 
 
-if not exist %systemdrive%\netinst md %systemdrive%\netinst
+if not exist %systemdrive%\netinst (md %systemdrive%\netinst)
 copy %NETINST%\*.cmd %systemdrive%\netinst
 copy %NETINST%\*.ini %systemdrive%\netinst
 copy %NETINST%\*.vbs %systemdrive%\netinst

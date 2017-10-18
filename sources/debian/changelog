@@ -1,3 +1,9 @@
+sambaedu-client-windows (0.3~) unstable; urgency=medium
+
+  * sysprep scripts cleanup
+
+ -- Denis Bonnenfant <denis.bonnenfant@diderot.org>  Wen, 19 Oct 2017 12:00:39 +0200
+
 sambaedu-client-windows (0.2~) unstable; urgency=medium
 
   * bug correction
