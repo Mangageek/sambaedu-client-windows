@@ -118,7 +118,7 @@ function tryuploadgpo # remotename remotedom
                         /usr/share/se3/shares/shares.avail/connexion.sh adminse3 $name $ip $mac
                         # /usr/share/se3/sbin/update-csv.sh
                     fi
-                    /usr/bin/net rpc shutdown -t 30 -r -C "$action  : Le poste $oldname ($ip) va etre renomme $name avec $2/$adminname%XXXXXXX " -I $ip -U "$2/$adminname%$passadmin" 
+                    /usr/bin/net rpc shutdown -t 30 -r -C "Action $action  : Le poste $oldname ($ip) va etre renomme $name avec $2/$adminname%XXXXXXX " -I $ip -U "$2/$adminname%$passadmin" 
     	            return 0 
                 else
                     echo "integration a distance : connexion a $1 impossible avec $2/$adminname...<br>" 
@@ -170,6 +170,8 @@ else
 	fi    
     echo -e "$name\r
 ">$logondir/sysprep.txt
+        echo -e "$name\r
+">$netinst/$ip.txt
     sed -e "s/ADMIN=__ADMIN__/ADMIN=$adminname/;s/PASSWD=__PASSWD__/PASSWD=${passadmin}/" $netinst/shutdown.cmd.in >$logondir/shutdown.cmd
     if [ ! -f "$logondir/gpt.ini" ]
     then
@@ -208,4 +210,4 @@ en connectant le lecteur z: à \\\\$netbios_name\\install <br>" 1>&2
     fi
 fi
 rm -f /home/netlogon/$ip.lck
-
+rm -fr /home/netlogon/machine/$oldname

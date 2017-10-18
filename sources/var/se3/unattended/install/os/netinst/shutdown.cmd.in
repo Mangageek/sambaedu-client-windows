@@ -6,6 +6,8 @@
 :: 
 @echo off
 
+if not exist %systemdrive%\netinst (mkdir %systemdrive%\netinst)
+if not exist %systemdrive%\netinst\logs (mkdir %systemdrive%\netinst\logs)
 pushd %systemdrive%\netinst
 
 :: on prepare le lancement du script de sortie domaine au reboot
@@ -25,7 +27,7 @@ reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Win
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultPassword" /d "%PASSWD%" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoAdminLogon" /d "1" /F >NUL
 
-if exist %systemroot%\system32\grouppolicy\machine\scripts\startup\startup.cmd del /f /q %systemroot%\system32\grouppolicy\machine\scripts\startup\startup.cmd && echo GPO efface
+if exist %systemroot%\system32\grouppolicy\machine\scripts\startup\startup.cmd (del /f /q %systemroot%\system32\grouppolicy\machine\scripts\startup\startup.cmd && echo GPO efface)
 echo Redemarrage immediat
 echo shutdown gpo OK>> logs\domscripts.txt 
 

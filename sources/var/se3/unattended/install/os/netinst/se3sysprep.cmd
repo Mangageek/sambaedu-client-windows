@@ -35,7 +35,7 @@ call %systemdrive%\netinst\se3w10-vars.cmd
 :: recup du nom si il existe
 if exist "%systemdrive%\netinst\%IP%.txt" (goto sysprep)
 :: si la machine est enregistree cela ne sert a rien, elle prendra son nom au boot
-if exist "%systemdrive%\netinst\%IP%.txt" (goto sysprep)
+if exist "%systemdrive%\netinst\sysprep.txt" (goto sysprep)
 :: si elle n'est pas enregistrée on permet de le faire ici :
 set /P NEW_NAME=entrez le nom [%computername%]: || set NEW_NAME=%Computername%
 echo:%NEW_NAME%>%SystemDrive%\Netinst\sysprep.txt
