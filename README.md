@@ -1,7 +1,7 @@
 # sambaedu-client-windows
 Installation et mise au domaine automatique des clients windows.
 
-Ce paquet permet l'installation totalement automatisée de Windows 10, la mise au domaine, ainsi que la préparation pré et post-clonage. Il remplace le paquet se3-domscripts qui ne doit plus être utilisé pour Windows 10.
+Ce paquet permet l'installation totalement automatisée de Windows 10, la mise au domaine, ainsi que la préparation pré et post-clonage. Il remplace le paquet se3-domscripts **qui ne doit plus être utilisé pour Windows 10**.
 
 ## Principe
 Les opérations sont lancées à distance depuis l'interface SE3. Si nécessaire le nom de la machine sera demandé lors de l'installation.
