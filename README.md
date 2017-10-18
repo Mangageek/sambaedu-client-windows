@@ -11,6 +11,7 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 *Il est possible d'intégrer un poste déjà installé. Néanmoins sysprep est assez chatouilleux, et donc le succès n'est pas garanti !*
 - depuis l'interface se3, menu dhcp-> intégrer. Ne fonctionnera que si le poste a déjà l'UAC desactivée.
 - sur le poste, en administrateur, connecter le lecteur `z:` à `\\se3\install` et lancer  `z:\os\netinst\rejointse3.cmd`, ou lancer directement `\\se3\install\os\netinst\rejointse3.cmd`
+- il est possible renommer un poste déjà intégré : menu dhcp->renommer un poste windows. 
 
 ## prérequis pour une installation totalement automatique
 - sources d'installation Windows installées dans z:\os\Win10
