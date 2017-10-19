@@ -82,7 +82,8 @@ if exist %SystemRoot%\wpkg-client.vbs (goto reinstw) else (goto instw)
     Set NoRunWpkgJS=1
     Set TaskUser=adminse3
     Set TaskPass=%XPPASS%
-    if exist Z:\wpkg\wpkg-repair.bat call (Z:\wpkg\wpkg-repair.bat)
+    if exist Z:\wpkg\wpkg-repair.bat (copy Z:\wpkg\wpkg-repair.bat %systemdrive%\netinst\wpkg-repair.cmd)
+    call %systemdrive%\netinst\wpkg-repair.cmd
     echo.
     goto suite
 
@@ -93,7 +94,8 @@ if exist %SystemRoot%\wpkg-client.vbs (goto reinstw) else (goto instw)
     Set NoRunWpkgJS=1
     Set TaskUser=adminse3
     Set TaskPass=%XPPASS%
-    if exist Z:\wpkg\wpkg-install.bat call (Z:\wpkg\wpkg-install.bat)
+    if exist Z:\wpkg\wpkg-install.bat (copy Z:\wpkg\wpkg-install.bat %systemdrive%\netinst\wpkg-install.cmd)
+    call %systemdrive%\netinst\wpkg-install.cmd
     echo.
     :: echo installation immediate du paquet wsusoffline
     :: if exist z:\wpkg\wpkg-se3.js cscript z:\wpkg\wpkg-se3.js /install:wsusoffline /nonotify
