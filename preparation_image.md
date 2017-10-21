@@ -10,6 +10,8 @@ install-win-iso.sh nom_de_iso.iso
 Une fois l'arborescence de l'iso copiée sur le partage du se3, l'ajout de drivers à l'image se fait depuis un poste W10 64Bits. Aucun outil n'est nécessaire. 
 On ajoute uniquement les drivers indispensables pour l'installation (controleurs disques et réseau).
 
+**Attention** ceci doit être fait avec un compte admin du se3 (il faut avoir les droits d'écriture sur install). Le compte adminse3 ne fonctionne pas !
+
 1 recherche de l'index du winpe
 --------------------------------
 
