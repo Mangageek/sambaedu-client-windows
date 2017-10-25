@@ -22,9 +22,11 @@ reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Appx" /v "AllowDeploymentI
 :: on desactive smb2/3
 sc.exe config lanmanworkstation depend= bowser/mrxsmb20/mrxsmb10/nsi
 sc.exe config mrxsmb20 start= disabled
-:: on active smb1
+:: on active smb1   DANGER!!!
 sc.exe config lanmanworkstation depend= bowser/mrxsmb10/nsi
 sc.exe config mrxsmb10 start= auto
+dism.exe /online /enable-feature /featurename:SMB1Protocol-client
+dism.exe /online /enable-feature /featurename:SMB1Protocol-server
 
 :: on renomme l'ordinateur si besoin : 
 
