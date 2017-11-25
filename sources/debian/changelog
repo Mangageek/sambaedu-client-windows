@@ -1,3 +1,9 @@
+sambaedu-client-windows (0.5~) unstable; urgency=medium
+
+  * compatibilité w7 
+
+ -- Denis Bonnenfant <denis.bonnenfant@diderot.org>  Thu, 25 Nov 2017 12:00:39 +0200
+
 sambaedu-client-windows (0.4) unstable; urgency=medium
 
   * compatibilité w10 1709

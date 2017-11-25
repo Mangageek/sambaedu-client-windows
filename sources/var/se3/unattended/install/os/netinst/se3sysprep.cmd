@@ -45,7 +45,12 @@ echo Pour info le nom enregistre est :
 type "%SystemDrive%\Netinst\sysprep.txt"
 :: sensé permettre à sysprep de fonctionner dans certains cas... Pas vu de différence !
 ::powershell -ExecutionPolicy ByPass -File c:\netinst\tiles.ps1
-%windir%\system32\sysprep\sysprep.exe /generalize /oobe /quit /unattend:c:\netinst\sysprep.xml
+
+:: detection OS
+ver | findstr /i /c:"version 10." >nul
+if [%errorlevel%]==[0] (set "OS=10") else (set "OS=7")
+
+%windir%\system32\sysprep\sysprep.exe /generalize /oobe /quit /unattend:c:\netinst\sysprep-%OS%.xml
 set "ERR=%ERRORLEVEL%"
 if [%ERR%]==[0] (goto y) else (goto n)
 :n

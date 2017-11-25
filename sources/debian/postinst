@@ -28,12 +28,11 @@ case "$1" in
         sed  "s/__SE3_DOMAIN__/$se3_domain/;s/__NETBIOS_NAME__/$netbios_name/;s/__XPPASS__/$xppass/;s/__SE3IP__/$se3ip/;s#__URLSE3__#$urlse3#" \
  /var/se3/unattended/install/os/netinst/se3w10-vars.cmd.in > /var/se3/unattended/install/os/netinst/se3w10-vars.cmd
         sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/unattend.xml.in > /var/se3/unattended/install/os/netinst/unattend.xml
-        sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/sysprep.xml.in > /var/se3/unattended/install/os/netinst/sysprep.xml
-       # ajout mise en place de l'iso ?
+        sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/sysprep-7.xml.in > /var/se3/unattended/install/os/netinst/sysprep-7.xml
+        sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/sysprep-10.xml.in > /var/se3/unattended/install/os/netinst/sysprep-10.xml
+        # ajout mise en place de l'iso 
         chown -R www-se3:www-data /var/www/se3/ipxe
         chown -R www-se3:www-data /var/www/se3/tftp
-	# ce lien ne veut pas se faire dans le paquet... bizarre !
-	#ln -s /var/se3/unattended/install/os/netinst /var/se3/unattended/install/os/Win10/sources/\$OEM\$/\$1/netinst
         echo "installation ok"
     ;;
 
