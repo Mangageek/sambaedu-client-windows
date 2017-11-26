@@ -24,7 +24,7 @@ case "$1" in
         . /etc/se3/config_c.cache.sh
 	. /usr/share/se3/includes/functions.inc.sh
 	SETMYSQL unattended 1 "installation auto windows" 6
-        /usr/share/se3/sbin/update-share.sh -v -d install
+        /usr/share/se3/sbin/update-share.sh -v -d install || true
         sed  "s/__SE3_DOMAIN__/$se3_domain/;s/__NETBIOS_NAME__/$netbios_name/;s/__XPPASS__/$xppass/;s/__SE3IP__/$se3ip/;s#__URLSE3__#$urlse3#" \
  /var/se3/unattended/install/os/netinst/se3w10-vars.cmd.in > /var/se3/unattended/install/os/netinst/se3w10-vars.cmd
         sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/unattend.xml.in > /var/se3/unattended/install/os/netinst/unattend.xml
