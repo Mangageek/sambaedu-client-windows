@@ -1,19 +1,19 @@
 # sambaedu-client-windows
 Installation et mise au domaine automatique des clients windows.
 
-Ce paquet permet l'installation totalement automatisée de Windows 10, la mise au domaine, ainsi que la préparation pré et post-clonage. Il remplace le paquet se3-domscripts **qui ne doit plus être utilisé pour Windows 10**.
+Ce paquet permet l'installation totalement automatisée de Windows 10, la mise au domaine, ainsi que la préparation pré et post-clonage de Windows 7 à 10. Il remplace le paquet se3-domscripts **qui ne doit plus être utilisé pour Windows 10**.
 
 ## Principe
 Les opérations sont lancées à distance depuis l'interface SE3. Si nécessaire le nom de la machine sera demandé lors de l'installation.
 La configuration windows installée est optimisée pour le cas d'usage d'un domaine se3. Il est possible de la personnaliser en modifiant les fichiers .xml soit manuellement soit avec les outils Windows de configuration d'image système.
 
-## Intégration au domaine d'un poste déjà installé
+## Intégration au domaine d'un poste déjà installé 7 et 10
 *Il est possible d'intégrer un poste déjà installé. Néanmoins sysprep est assez chatouilleux, et donc le succès n'est pas garanti Il faut que le poste soit à jour*
 - depuis l'interface se3, menu dhcp-> intégrer. Ne fonctionnera que si le poste a déjà l'UAC desactivée.
 - sur le poste, en administrateur, connecter le lecteur `z:` à `\\se3\install` et lancer  `z:\os\netinst\rejointse3.cmd`, ou lancer directement `\\se3\install\os\netinst\rejointse3.cmd`
 - il est possible renommer un poste déjà intégré : menu dhcp->renommer un poste windows. 
 
-## prérequis pour une installation totalement automatique
+## prérequis pour une installation totalement automatique 10
 - sources d'installation Windows installées dans z:\os\Win10
 - pilotes reseau et disques injectés dans l'image wim https://github.com/SambaEdu/sambaedu-client-windows/blob/master/preparation_image.md
 - postes provisionnés dans l'annuaire:  le triplet nom;ip;mac est renseigné et la machine appartient à un parc.
@@ -29,7 +29,7 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 
 
 
-## solutions pour le clonage
+## solutions pour le clonage 7 et 10
 - depuis l'interface clonage avec sysrescued+ntfsclone : choisir seven64, normalement cela doit fonctionner à tout les coups si l'installation initiale est faite par  ce paquet !
 - clonezilla ou autres : non testé, mais il suffit de cloner le poste une fois qu'il a exécuté sysprep. Le retour au domaine sera automatique. Lancer `z:\os\netinst\se3sysprep.cmd` 
 - il est possible de cloner des machines différentes, dans la mesure où l'image windows inclut les drivers réseau et disques correspondant aux différents hardwares
