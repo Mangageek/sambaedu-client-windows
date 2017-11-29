@@ -31,7 +31,7 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 
 ## solutions pour le clonage 7 et 10
 - depuis l'interface clonage avec sysrescued+ntfsclone : choisir seven64, normalement cela doit fonctionner à tout les coups si l'installation initiale est faite par  ce paquet !
-- clonezilla ou autres : non testé, mais il suffit de cloner le poste une fois qu'il a exécuté sysprep. Le retour au domaine sera automatique. Lancer `\\se3\install\os\netinst\rejointse3.cmd` 
+- clonezilla ou autres : non testé, mais il suffit de cloner le poste une fois qu'il a exécuté sysprep. Le retour au domaine sera automatique. Lancer `\\se3\install\os\netinst\rejointse3.cmd` avant le clonage, et lancer la solution de clonage une fois que le poste est préparé.
 - il est possible de cloner des machines différentes, dans la mesure où l'image windows inclut les drivers réseau et disques correspondant aux différents hardwares
 
 ## A faire
