@@ -27,7 +27,12 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 - BIOS configurés pour booter en PXE (pas d'UEFI)
 - démarrer en pxe et taper "i"
 
-
+## Personnalisation du partitionnement :
+ **Attention, pour le moment le paquet installe Windows sur tout le disque, en ecrasant tout !**
+ Il est toutefois possible de modifier le partitionnement en se référant à la documentation suivante :  
+ https://technet.microsoft.com/fr-fr/library/dd744365(v=ws.10).aspx
+ Le fichier /var/unattend/install/os/netinst/unattend.xml devra être modifié en conséquence.
+ 
 
 ## solutions pour le clonage 7 et 10
 - depuis l'interface clonage avec sysrescued+ntfsclone : choisir seven64, normalement cela doit fonctionner à tout les coups si l'installation initiale est faite par  ce paquet !
@@ -36,7 +41,7 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 
 ## A faire
 
-- **Attention, pour le moment le paquet installe Windows sur tout le disque, en ecrasant tout !** Il faudrait prévoir une page dans l'interface pour pouvoir définir un partitionnement.
+- Il faudrait prévoir une page dans l'interface pour pouvoir définir un partitionnement personnalisé.
 - La mise au domaine et le clonage via sysprep ne fonctionne que si le poste a été correctement installé au départ. Identifier les problèmes et proposer un script de réparation préalable ?
 - Migrer le boot chaîné pxelinux->ipxe vers ipxe uniquement
 - afficher en temps réel les infos sur les opérations d'installation et  de clonage en cours côté serveur
