@@ -20,6 +20,8 @@ if not [%ERR%]==[0] (
    exit 1
 )
 
+if exist %systemdrive%\netinst\action.txt (set /P ACTION=<"%systemdrive%\netinst\action.txt")
+
 
 echo nettoyage wpkg
 :: on tue wpkg en cas de clonage
@@ -49,6 +51,10 @@ type "%SystemDrive%\Netinst\sysprep.txt"
 :: detection OS
 ver | findstr /i /c:"version 10." >nul
 if [%errorlevel%]==[0] (set "OS=10") else (set "OS=7")
+if [%OS%]==[7] (if [%SYSPREP%]==[no] (goto nosysprep))
+
+:: ajouter un test pour l'os
+if [%ACTION%]==[renomme] (goto nosysprep)
 
 %windir%\system32\sysprep\sysprep.exe /generalize /oobe /quit /unattend:c:\netinst\sysprep-%OS%.xml
 set "ERR=%ERRORLEVEL%"
@@ -60,7 +66,20 @@ pause
 exit 1
 :y
 echo sysprep ok>> %systemdrive%\netinst\logs\unattend.log
-call %systemdrive%\netinst\se3rapport.cmd pre y
+goto fin
 
-%SystemRoot%\system32\shutdown.exe -r -t 10  -c "Le poste est pret pour le clonage"
+:nosysprep
+
+::reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /F >NUL
+reg.exe delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /F >NUL
+reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultUserName" /d ".\adminse3" /F >NUL
+reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultPassword" /d "%XPPASS%" /F >NUL
+reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoAdminLogon" /d "1" /F >NUL
+reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoLogonCount" /d "3" /F >NUL
+reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /d "%SystemDrive%\netinst\se3w10.cmd" /F >NUL
+cscript %systemdrive%\netinst\quitte_domaine.vbs /u:"adminse3" /p:"%XPPASS%"
+
+:fin
+call %systemdrive%\netinst\se3rapport.cmd pre y
+%SystemRoot%\system32\shutdown.exe -r -t 10  -c "Le poste est pret pour le clonage ou %ACTION%"
 

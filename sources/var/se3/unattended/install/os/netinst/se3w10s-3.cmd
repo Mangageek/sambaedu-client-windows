@@ -68,7 +68,7 @@ echo Mappage de la lettre Z: vers \\%NETBIOS_NAME%\install
 if [%Z%]==[] (set "Z=Z:">NUL)
 if [%SOFTWARE%]==[] (set "SOFTWARE=Z:\packages">NUL)
 if [%ComSpec%]==[] (set "ComSpec=%SystemRoot%\system32\cmd.exe">NUL)
-net use Z: \\%NETBIOS_NAME%\install %XPPASS% /user:%SE3_DOMAIN%\adminse3
+net use Z: \\%NETBIOS_NAME%\install %XPPASS% /user:%SE3_DOMAIN%\adminse3 /persistent:no
 
 call %Z%\wpkg\initvars_se3.bat >NUL
 
@@ -133,4 +133,5 @@ echo se3 OK>> unattend.log
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DontDisplayLastUserName" /d "1" /F
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%SE3_DOMAIN%" /F
 reg.exe delete "HKey_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /F
+net use * /delete /yes
 %SystemRoot%\system32\shutdown.exe -r -t 3  -c "Le poste %ComputerName% est pret !"

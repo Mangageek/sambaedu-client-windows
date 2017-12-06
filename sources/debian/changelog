@@ -1,3 +1,11 @@
+sambaedu-client-windows (0.6) unstable; urgency=medium
+
+  * optimisation : pas de sysprep en cas de renommage
+  * possibilite de ne pas faire de sysprep pour w7
+  * desactivation installation auto des tuiles
+
+ -- Denis Bonnenfant <denis.bonnenfant@diderot.org>  Wen, 06 Nov 2017 12:00:39 +0200
+
 sambaedu-client-windows (0.5) unstable; urgency=medium
 
   * compatibilité w7 

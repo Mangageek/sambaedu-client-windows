@@ -10,6 +10,9 @@
 
 set NETINST=%~dp0
 
+::if exist %systemdrive%\netinst\phase.txt (set /P PHASE=<%systemdrive%\netinst\phase.txt)
+::if [%1]==[nosysprep] (set "SYSPREP=0") else (set "SYSPREP=1")
+
 @echo off
 
 
@@ -26,5 +29,6 @@ copy %NETINST%\*.txt %systemdrive%\netinst
 
 echo Execution en mode eleve de se3sysprep.cmd.
 	
-cscript %systemdrive%\Netinst\execute-elevated.js %systemdrive%\Netinst\se3sysprep.cmd
+cscript %systemdrive%\Netinst\execute-elevated.js %systemdrive%\Netinst\se3sysprep.cmd 
+::%SYSPREP%
  

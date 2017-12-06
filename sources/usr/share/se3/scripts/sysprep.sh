@@ -172,6 +172,8 @@ else
 ">$logondir/sysprep.txt
         echo -e "$name\r
 ">$netinst/$ip.txt
+        echo -e "$action\r
+">$netinst/action.txt
     sed -e "s/ADMIN=__ADMIN__/ADMIN=$adminname/;s/PASSWD=__PASSWD__/PASSWD=${passadmin}/" $netinst/shutdown.cmd.in >$logondir/shutdown.cmd
     if [ ! -f "$logondir/gpt.ini" ]
     then
