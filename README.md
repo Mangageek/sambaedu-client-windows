@@ -38,7 +38,7 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 ## prérequis pour une installation manuelle
 
 - sources d'installation Windows installées dans z:\os\Win10
-- pilotes reseau et disques injectés dans l'image wim  https://github.com/SambaEdu/sambaedu-client-windows/blob/master/preparation_image.md
+- pilotes reseau et disques injectés dans l'image wim [préparation de l'image](preparation_image.md#préparation-de-limage-windows-dinstallation)
 - BIOS configurés pour booter en PXE (pas d'UEFI)
 - démarrer en pxe et taper "i"
 
