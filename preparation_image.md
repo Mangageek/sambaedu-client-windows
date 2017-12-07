@@ -10,6 +10,10 @@ install-win-iso.sh nom_de_iso.iso
 Une fois l'arborescence de l'iso copiée sur le partage du se3, l'ajout de drivers à l'image se fait depuis un poste W10 64Bits. Aucun outil n'est nécessaire. 
 On ajoute uniquement les drivers indispensables pour l'installation (controleurs disques et réseau).
 
+Il faut juste lancer un invite de commande en Administrateur dans lequel on montera au préalable le lecteur z: avec la commande
+```
+net use z: \\se3\install
+```
 **Attention** ceci doit être fait avec un compte admin du se3 (il faut avoir les droits d'écriture sur install). Le compte adminse3 ne fonctionne pas !
 
 1 recherche de l'index du winpe
@@ -31,7 +35,10 @@ Nom : Microsoft Windows Setup (x64)
 Description : Microsoft Windows Setup (x64)
 Taille : 1 821 696 047 octets
 ```
-Dans ce cas deux indexes, si on fait une installation, seul WinPE est indispensable. On choisit donc l'index 1
+**NOTE :** 
+Si l'image refuse de se monter, ceci est sans doute lié au fait que le fichier boot.wim est en lecture seule. Dans ce cas, il suffit de décocher ce paramètre pour permettre le montage.
+
+Dans ce cas, deux indexes, si on fait une installation, seul WinPE est indispensable. On choisit donc l'index 1
 
 2 montage de l'image
 -------------------------
