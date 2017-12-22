@@ -21,11 +21,16 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 *Il est possible d'intégrer un poste déjà installé. Néanmoins sysprep est assez chatouilleux, et donc le succès n'est pas garanti Il faut que le poste soit à jour*
 
 - depuis l'interface se3, menu dhcp-> intégrer. Ne fonctionnera que si le poste a déjà l'UAC desactivée.
-- sur le poste, en administrateur, connecter le lecteur `z:` à `\\se3\install` et lancer  `z:\os\netinst\rejointse3.cmd`, ou lancer directement `\\se3\install\os\netinst\rejointse3.cmd`
+- sur le poste, en administrateur local, connecter le lecteur `z:` à `\\se3\install` et lancer  `z:\os\netinst\rejointse3.cmd`, ou lancer directement `\\se3\install\os\netinst\rejointse3.cmd`. Le compte à utiliser de préférence pour connecter le lecteur réseau est `adminse3` 
+
 - il est possible renommer un poste déjà intégré : menu dhcp->renommer un poste windows. 
 
 
-## prérequis pour une installation totalement automatique 10
+## Installation automatique 10
+
+Avec les Windows 10 récents, il s'agit de la seule façon fiable et reproductible d'installer des postes qui pourront être facilement clonés ensuite. En voulant gagner du temps à réutiliser une installation faite manuellement vous allez en perdre beaucoup à comprendre pourquoi cela ne fonctione pas... 
+
+### Prérequis pour une installation totalement automatique à distance
 
 - sources d'installation Windows installées dans z:\os\Win10
 - pilotes reseau et disques injectés dans l'image wim : [préparation de l'image](preparation_image.md#préparation-de-limage-windows-dinstallation)
@@ -35,7 +40,7 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 *Si le poste n'a pas d'ip réservée, l'installation se fera avec le dernier nom connu.*
 
 
-## prérequis pour une installation manuelle
+### prérequis pour une installation automatique devant le poste
 
 - sources d'installation Windows installées dans z:\os\Win10
 - pilotes reseau et disques injectés dans l'image wim [préparation de l'image](preparation_image.md#préparation-de-limage-windows-dinstallation)
