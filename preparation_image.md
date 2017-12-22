@@ -81,7 +81,8 @@ Vu que le réseau est accessible ensuite on peut aussi passer directement des dr
  
 ## FAQ
  - le poste reboote  juste après winpeini.shl : les drivers réseau ne sont pas bons. Attention à ne pas en injecter trop, certains sont incompatibles entre eux et vont empêcher le chargement. Il doit y avoir une seule version du driver pour un modèle de carte. Si vous avez un poste du même modèle déjà installé en 7 ou 10, il est possible avec dism de regarder les drivers effectivement chargés : 
- ``̀
+ ```
  DISM.exe /Online /get-drivers
  ```
+ 
  
