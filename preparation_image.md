@@ -42,9 +42,6 @@ Nom : Microsoft Windows Setup (x64)
 Description : Microsoft Windows Setup (x64)
 Taille : 1 821 696 047 octets
 ```
-**NOTE :** 
-Si l'image refuse de se monter, ceci est sans doute lié au fait que le fichier boot.wim est en lecture seule. Dans ce cas, il suffit de décocher ce paramètre pour permettre le montage.
-
 Dans ce cas, deux indexes, si on fait une installation, seul WinPE est indispensable. On choisit donc l'index 1
 
 2 montage de l'image
@@ -76,6 +73,9 @@ Dism /Unmount-Image /MountDir:%temp%\wim /Commit
 
 
 Normalement il n'est pas utile de répéter les opérations pour l'index 2 pour les drivers que vous voulez avoir en phase 2 (windows setup), et donc dans l'installation finale. 
+
+**NOTE :** 
+Sur certaines machines (ex: Lenovo M710S), le driver doit cependant être injecté sur l'index 2 de l'image afin que l'installation automatique puisse se faire.
 
 Vu que le réseau est accessible ensuite on peut aussi passer directement des drivers depuis un partage réseau en utilisant unattended.xml, ce qui évite de charger l'image wim. 
  
