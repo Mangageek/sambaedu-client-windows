@@ -1,5 +1,7 @@
 :: lancement de sysprep
 ::  est normalement deja connecte lors du lancement de ce script, et les privileges eleves
+
+:: TODO on ne lance pas le sysprep par défaut sauf en clas de clonage windows 10
 ::
 
 @echo off
@@ -51,10 +53,11 @@ type "%SystemDrive%\Netinst\sysprep.txt"
 :: detection OS
 ver | findstr /i /c:"version 10." >nul
 if [%errorlevel%]==[0] (set "OS=10") else (set "OS=7")
-if [%OS%]==[7] (if [%SYSPREP%]==[no] (goto nosysprep))
+if [%OS%]==[7] (goto nosysprep)
 
 :: ajouter un test pour l'os
 if [%ACTION%]==[renomme] (goto nosysprep)
+if [%1]!=[/sysprep] (goto nosysprep)
 
 %windir%\system32\sysprep\sysprep.exe /generalize /oobe /quit /unattend:c:\netinst\sysprep-%OS%.xml
 set "ERR=%ERRORLEVEL%"
@@ -70,7 +73,6 @@ goto fin
 
 :nosysprep
 
-::reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /F >NUL
 reg.exe delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultUserName" /d ".\adminse3" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultPassword" /d "%XPPASS%" /F >NUL
