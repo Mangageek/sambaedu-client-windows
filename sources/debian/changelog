@@ -1,3 +1,10 @@
+sambaedu-client-windows (0.7) unstable; urgency=medium
+
+  * optimisation : pas de sysprep sur l'intégration manuelle et sur les clonages w7. Ajout de /sysprep pour forçage
+  * Utilisation de sysprep uniquement en windows 10 clonage
+
+ -- Denis Bonnenfant <denis.bonnenfant@diderot.org>  Wen, 06 Nov 2017 12:00:39 +0200
+
 sambaedu-client-windows (0.6) unstable; urgency=medium
 
   * optimisation : pas de sysprep en cas de renommage
