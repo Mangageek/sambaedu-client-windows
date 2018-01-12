@@ -18,6 +18,12 @@ reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Win
 reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Appx" /v "AllowDeploymentInSpecialProfiles" /t "REG_DWORD" /d "1" /F
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore" /v "AutoDownload" /t "REG_DWORD" /d "2" /F
 
+
+:: detection OS
+ver | findstr /i /c:"version 10." >nul
+if [%errorlevel%]==[0] (set "OS=10") else (set "OS=7")
+if [%OS%]==[7] (goto renomme)
+
 :: desactivation smb2/3 sinon rien ne fonctionne...
 
 :: on desactive smb2/3
@@ -30,6 +36,7 @@ dism.exe /online /enable-feature /featurename:SMB1Protocol-client
 dism.exe /online /enable-feature /featurename:SMB1Protocol-server
 
 :: on renomme l'ordinateur si besoin : 
+:renomme
 
 call %systemdrive%\netinst\se3w10-vars.cmd
 

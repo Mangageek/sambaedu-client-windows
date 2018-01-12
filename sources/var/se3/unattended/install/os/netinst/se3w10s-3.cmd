@@ -118,6 +118,12 @@ if exist Z:\scripts\perso.bat (
 echo Sous %WINVERS%, on accepte les drivers non signes.
 bcdedit.exe -set loadoptions DISABLE_INTEGRITY_CHECKS
 
+:: detection OS
+ver | findstr /i /c:"version 10." >nul
+if [%errorlevel%]==[0] (set "OS=10") else (set "OS=7")
+if [%OS%]==[7] (goto fin)
+
+
 DISM /Online /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:z:os\Win10\sources\sxs
 
 echo ############## ACTIVATION WINDOWS #######
@@ -128,6 +134,8 @@ powershell -ExecutionPolicy ByPass -File activation.ps1
 
 echo ### activation des tuiles pour les utilisateurs du domaine ####
 powershell -ExecutionPolicy ByPass -File tiles.ps1
+
+:fin
 
 echo se3 OK>> unattend.log 
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DontDisplayLastUserName" /d "1" /F
