@@ -37,14 +37,14 @@ del /s /f /q %windir%\system32\grouppolicy\*
 
 call %systemdrive%\netinst\se3w10-vars.cmd
 :: recup du nom si il existe
-if exist "%systemdrive%\netinst\%IP%.txt" (goto sysprep)
+if exist "%systemdrive%\netinst\%IP%.txt" (goto nomok)
 :: si la machine est enregistree cela ne sert a rien, elle prendra son nom au boot
-if exist "%systemdrive%\netinst\sysprep.txt" (goto sysprep)
+if exist "%systemdrive%\netinst\sysprep.txt" (goto nomok)
 :: si elle n'est pas enregistrée on permet de le faire ici :
 set /P NEW_NAME=entrez le nom [%computername%]: || set NEW_NAME=%Computername%
 echo:%NEW_NAME%>%SystemDrive%\Netinst\sysprep.txt
 
-:sysprep
+:nomok
 echo Pour info le nom enregistre est : 
 type "%SystemDrive%\Netinst\sysprep.txt"
 :: sensé permettre à sysprep de fonctionner dans certains cas... Pas vu de différence !
@@ -57,8 +57,10 @@ if [%OS%]==[7] (goto nosysprep)
 
 :: ajouter un test pour l'os
 if [%ACTION%]==[renomme] (goto nosysprep)
+if [%ACTION%]==[clone] (goto sysprep)
 if [%1]!=[/sysprep] (goto nosysprep)
 
+:sysprep
 %windir%\system32\sysprep\sysprep.exe /generalize /oobe /quit /unattend:c:\netinst\sysprep-%OS%.xml
 set "ERR=%ERRORLEVEL%"
 if [%ERR%]==[0] (goto y) else (goto n)
