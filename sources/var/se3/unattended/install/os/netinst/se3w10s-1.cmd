@@ -65,6 +65,7 @@ reg.exe ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ComputerName\Co
 reg.exe ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "NV Hostname" /t REG_SZ /d "%NAME%" /F
 reg.exe ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "Hostname" /t REG_SZ /d "%NAME%" /F
 echo phase 1 : la machine est renommee %NAME% >> %systemdrive%\netinst\logs\unattend.log
+reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%NAME%" /F >NUL
 
 :: reboot
 %SystemRoot%\system32\shutdown.exe -r -t 3  -c "Le poste %ComputerName% est renomme %NAME%"
