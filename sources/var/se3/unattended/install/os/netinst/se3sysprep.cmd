@@ -84,6 +84,16 @@ reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Win
 reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /d "%SystemDrive%\netinst\se3w10.cmd" /F >NUL
 cscript %systemdrive%\netinst\quitte_domaine.vbs /u:"adminse3" /p:"%XPPASS%"
 
+
+net user | findstr adminse3 >NUL
+if [%errorlevel%]==[0] (goto fin)
+
+echo creation de adminse3
+
+net user adminse3 %XPPASS% /add
+net localgroup Administrateurs adminse3 /add
+net accounts /maxpwage:unlimited
+
 :fin
 call %systemdrive%\netinst\se3rapport.cmd pre y
 %SystemRoot%\system32\shutdown.exe -r -t 10  -c "Le poste est pret pour le clonage ou %ACTION%"
