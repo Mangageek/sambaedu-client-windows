@@ -30,6 +30,7 @@ case "$1" in
         sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/unattend.xml.in > /var/se3/unattended/install/os/netinst/unattend.xml
         sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/sysprep-7.xml.in > /var/se3/unattended/install/os/netinst/sysprep-7.xml
         sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/sysprep-10.xml.in > /var/se3/unattended/install/os/netinst/sysprep-10.xml
+        rm -fr /var/se3/unattended/install/os/netinst/*.txt
         # ajout mise en place de l'iso 
         chown -R www-se3:www-data /var/www/se3/ipxe
         chown -R www-se3:www-data /var/www/se3/tftp
