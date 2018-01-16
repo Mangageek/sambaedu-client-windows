@@ -75,7 +75,7 @@ echo:%NAME%>%SystemDrive%\Netinst\sysprep.txt
 :nomok
 echo Pour info le nom choisi est : 
 type "%SystemDrive%\Netinst\sysprep.txt"
-if [%NAME%]==[] (o
+if [%NAME%]==[] (
 
 	echo erreur, impossible de trouver un nom
 	goto renomme
