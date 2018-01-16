@@ -1,4 +1,5 @@
 ::  phase 1 : configuration du poste pour mise au domaine SE3
+::  cles registre indispensables et changement du nom
 @echo off
 time /T >>%systemdrive%\netinst\logs\unattend.log
 echo phase 1 : debut integration>>%systemdrive%\netinst\logs\unattend.log
@@ -32,8 +33,6 @@ sc.exe config mrxsmb20 start= disabled
 :: on active smb1   DANGER!!!
 sc.exe config lanmanworkstation depend= bowser/mrxsmb10/nsi
 sc.exe config mrxsmb10 start= auto
-dism.exe /online /enable-feature /featurename:SMB1Protocol-client
-dism.exe /online /enable-feature /featurename:SMB1Protocol-server
 
 :: on renomme l'ordinateur si besoin : 
 :renomme
@@ -44,27 +43,42 @@ net use z: \\%NETBIOS_NAME%\install /user:%SE3_DOMAIN%\adminse3 %XPPASS%
 
 ping -n 3 %SE3IP%
 
+:: recup du nom si il existe
+::priorite au fichier local
+if exist "%systemdrive%\netinst\sysprep.txt" (goto s)
+::fichier du serveur
 if exist "z:\os\netinst\%IP%.txt" (goto z)
-if exist "c:\netinst\%IP%.txt" (goto c)
-if exist "c:\netinst\sysprep.txt" (goto s)
-cls
-echo pas de nom trouve on pose la question >> %systemdrive%\netinst\logs\unattend.log
-::set NAME=%ComputerName%
-set /p NAME=Entrez le nom de la machine [%ComputerName%]:|| set NAME=%ComputerName%
-goto fin
-:z
-set /P NAME=<"z:\os\netinst\%IP%.txt"
-goto fin
+::fichier local
+if exist "%systemdrive%\netinst\%IP%.txt" (goto c)
+:: en derner ressort
+set "NAME=%ComputerName%"
 :c
-set /P NAME=<"c:\netinst\%IP%.txt"
-goto fin
+set /P NAME=<"%systemdrive%\netinst\%IP%.txt"
+goto nom
+:c
+set /P NAME=<"z:\os\netinst\%IP%.txt"
+goto nom
 :s
-set /p NAME=<c:\netinst\sysprep.txt
-goto fin
-:fin
+set /P NAME=<"%systemdrive%\netinst\sysprep.txt"
+:nom
+cls
+echo Pour info le nom enregistre pour %IP% est [%NAME%] 
+choice /C ON /T 10 /D O /M Accepter ? [On]
+IF errorlevel 2 goto choix
+IF errorlevel 1 goto nomok
+
+:choix
+:: si elle n'est pas enregistree on permet de le faire ici :
+set "OLDNAME=%NAME%"
+set /P NAME=entrez le nouveau nom [%OLDNAME%]: || set NAME=%OLDNAME%
+echo:%NAME%>%SystemDrive%\Netinst\sysprep.txt
+
+:nomok
+echo Pour info le nom choisi est : 
+type "%SystemDrive%\Netinst\sysprep.txt"
 if [%NAME%]==[] (
 	echo erreur, impossible de trouver un nom
-	set "NAME=%ComputerName%"
+	goto renomme
 )
 echo "machine renommee %NAME%"
 reg.exe ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ComputerName\ActiveComputerName" /v ComputerName /t REG_SZ /d "%NAME%" /F

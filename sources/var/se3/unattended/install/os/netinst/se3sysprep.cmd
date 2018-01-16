@@ -1,7 +1,7 @@
 :: lancement de sysprep
-::  est normalement deja connecte lors du lancement de ce script, et les privileges eleves
+:: est normalement deja connecte lors du lancement de ce script, et les privileges eleves
 
-:: TODO on ne lance pas le sysprep par défaut sauf en clas de clonage windows 10
+:: on ne lance pas le sysprep par défaut sauf en cas de clonage windows 10
 ::
 
 @echo off
@@ -36,44 +36,41 @@ echo nettoyage gpo locales
 del /s /f /q %windir%\system32\grouppolicy\*
 
 call %systemdrive%\netinst\se3w10-vars.cmd
-:: recup du nom si il existe
-if exist "%systemdrive%\netinst\%IP%.txt" (goto nomok)
-:: si la machine est enregistree cela ne sert a rien, elle prendra son nom au boot
-if exist "%systemdrive%\netinst\sysprep.txt" (goto nomok)
-:: si elle n'est pas enregistrée on permet de le faire ici :
-set /P NEW_NAME=entrez le nom [%computername%]: || set NEW_NAME=%Computername%
-echo:%NEW_NAME%>%SystemDrive%\Netinst\sysprep.txt
-
-:nomok
-echo Pour info le nom enregistre est : 
-type "%SystemDrive%\Netinst\sysprep.txt"
-:: sensé permettre à sysprep de fonctionner dans certains cas... Pas vu de différence !
-::powershell -ExecutionPolicy ByPass -File c:\netinst\tiles.ps1
 
 :: detection OS
 ver | findstr /i /c:"version 10." >nul
 if [%errorlevel%]==[0] (set "OS=10") else (set "OS=7")
 if [%OS%]==[7] (goto nosysprep)
 
-:: ajouter un test pour l'os
+:: win10
+if [%ACTION%]==[] (set "ACTION=rejoint")
 if [%ACTION%]==[renomme] (goto nosysprep)
 if [%ACTION%]==[clone] (goto sysprep)
 if not [%1]==[/sysprep] (goto nosysprep)
 
 :sysprep
+cls
+echo ATTENTION l'operation %ACTION% va se faire AVEC sysprep ! 
+choice /C ON /T 5 /D O /M Accepter ? [On]
+IF errorlevel 2 goto nosysprep
+
 %windir%\system32\sysprep\sysprep.exe /generalize /oobe /quit /unattend:c:\netinst\sysprep-%OS%.xml
 set "ERR=%ERRORLEVEL%"
 if [%ERR%]==[0] (goto y) else (goto n)
 :n
 echo probleme sysprep, essayez de le resoudre avant de relancer ce script !
 echo erreur : %ERR%
-pause
-exit 1
+goto nosysprep
+
 :y
 echo sysprep ok>> %systemdrive%\netinst\logs\unattend.log
 goto fin
 
 :nosysprep
+cls
+echo ATTENTION l'operation %ACTION% va se faire SANS sysprep ! 
+choice /C ON /T 5 /D O /M Accepter ? [On]
+IF errorlevel 2 goto sysprep
 
 reg.exe delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%ComputerName%" /F >NUL
@@ -96,5 +93,5 @@ net accounts /maxpwage:unlimited
 
 :fin
 call %systemdrive%\netinst\se3rapport.cmd pre y
-%SystemRoot%\system32\shutdown.exe -r -t 10  -c "Le poste est pret pour le clonage ou %ACTION%"
+%SystemRoot%\system32\shutdown.exe -r -t 10  -c "Le poste est pret pour l'action %ACTION%"
 

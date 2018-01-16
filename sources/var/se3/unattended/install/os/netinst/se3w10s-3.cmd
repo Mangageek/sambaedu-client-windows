@@ -137,9 +137,10 @@ powershell -ExecutionPolicy ByPass -File tiles.ps1
 
 :fin
 
-echo se3 OK>> unattend.log 
+echo se3 OK>> logs\unattend.log 
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DontDisplayLastUserName" /d "1" /F
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%SE3_DOMAIN%" /F
 reg.exe delete "HKey_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /F
+reg.exe delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoAdminLogon" /F >NUL
 net use * /delete /yes
 %SystemRoot%\system32\shutdown.exe -r -t 3  -c "Le poste %ComputerName% est pret !"
