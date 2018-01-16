@@ -55,7 +55,7 @@ set "NAME=%ComputerName%"
 :c
 set /P NAME=<"%systemdrive%\netinst\%IP%.txt"
 goto nom
-:c
+:z
 set /P NAME=<"z:\os\netinst\%IP%.txt"
 goto nom
 :s
@@ -63,7 +63,7 @@ set /P NAME=<"%systemdrive%\netinst\sysprep.txt"
 :nom
 cls
 echo Pour info le nom enregistre pour %IP% est [%NAME%] 
-choice /C ON /T 10 /D O /M Accepter ? [On]
+choice /C ON /T 10 /D O /N /M "Accepter ? [On]"
 IF errorlevel 2 goto choix
 IF errorlevel 1 goto nomok
 
@@ -72,11 +72,11 @@ IF errorlevel 1 goto nomok
 set "OLDNAME=%NAME%"
 set /P NAME=entrez le nouveau nom [%OLDNAME%]: || set NAME=%OLDNAME%
 echo:%NAME%>%SystemDrive%\Netinst\sysprep.txt
-
 :nomok
 echo Pour info le nom choisi est : 
 type "%SystemDrive%\Netinst\sysprep.txt"
-if [%NAME%]==[] (
+if [%NAME%]==[] (o
+
 	echo erreur, impossible de trouver un nom
 	goto renomme
 )

@@ -51,7 +51,7 @@ if not [%1]==[/sysprep] (goto nosysprep)
 :sysprep
 cls
 echo ATTENTION l'operation %ACTION% va se faire AVEC sysprep ! 
-choice /C ON /T 5 /D O /M Accepter ? [On]
+choice /C ON /T 5 /N /D O /M "Accepter ? [On]"
 IF errorlevel 2 goto nosysprep
 
 %windir%\system32\sysprep\sysprep.exe /generalize /oobe /quit /unattend:c:\netinst\sysprep-%OS%.xml
@@ -69,8 +69,10 @@ goto fin
 :nosysprep
 cls
 echo ATTENTION l'operation %ACTION% va se faire SANS sysprep ! 
-choice /C ON /T 5 /D O /M Accepter ? [On]
-IF errorlevel 2 goto sysprep
+choice /C ONA /T 5 /N /D O /M "Accepter ou Annuler? [Ona]"
+set "CHOIX=%ErrorLevel%"
+IF [%CHOIX%]==[2] goto sysprep
+IF [%CHOIX%]==[3] exit
 
 reg.exe delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%ComputerName%" /F >NUL
@@ -93,5 +95,5 @@ net accounts /maxpwage:unlimited
 
 :fin
 call %systemdrive%\netinst\se3rapport.cmd pre y
-%SystemRoot%\system32\shutdown.exe -r -t 10  -c "Le poste est pret pour l'action %ACTION%"
+%SystemRoot%\system32\shutdown.exe -r -t 10  -c "Le poste est pret pour l'integration"
 
