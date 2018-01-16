@@ -63,7 +63,7 @@ set /P NAME=<"%systemdrive%\netinst\sysprep.txt"
 :nom
 cls
 echo Pour info le nom enregistre pour %IP% est [%NAME%] 
-choice /C ON /T 10 /D O /N /M "Accepter ? [On]"
+choice /C ON /T 10 /N /D O /M "Accepter [On]"
 IF errorlevel 2 goto choix
 IF errorlevel 1 goto nomok
 
