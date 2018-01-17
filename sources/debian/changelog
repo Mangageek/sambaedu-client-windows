@@ -15,7 +15,7 @@ sambaedu-client-windows (0.6) unstable; urgency=medium
   * possibilite de ne pas faire de sysprep pour w7
   * desactivation installation auto des tuiles
 
- -- Denis Bonnenfant <denis.bonnenfant@diderot.org>  Wen, 08 Dec 2017 12:00:39 +0200
+ -- Denis Bonnenfant <denis.bonnenfant@diderot.org>  Wed, 08 Dec 2017 12:00:39 +0200
 
 sambaedu-client-windows (0.5) unstable; urgency=medium
 
@@ -33,7 +33,7 @@ sambaedu-client-windows (0.3~) unstable; urgency=medium
 
   * sysprep scripts cleanup
 
- -- Denis Bonnenfant <denis.bonnenfant@diderot.org>  Wen, 19 Oct 2017 12:00:39 +0200
+ -- Denis Bonnenfant <denis.bonnenfant@diderot.org>  Wed, 19 Oct 2017 12:00:39 +0200
 
 sambaedu-client-windows (0.2~) unstable; urgency=medium
 
