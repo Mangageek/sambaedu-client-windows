@@ -18,12 +18,13 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 
 ## Intégration au domaine d'un poste déjà installé 7 et 10
 
-*Il est possible d'intégrer un poste déjà installé. Néanmoins sysprep est assez chatouilleux, et donc le succès n'est pas garanti Il faut que le poste soit à jour*
+*Il est possible d'intégrer un poste déjà installé. Néanmoins il est préférable dans la mesure du possible de refaire une installation automatique afin d'être sûr à 100% de la configuration installée.*
 
 - depuis l'interface se3, menu dhcp-> intégrer. Ne fonctionnera que si le poste a déjà l'UAC desactivée.
-- sur le poste, en administrateur local, connecter le lecteur `z:` à `\\se3\install` et lancer  `z:\os\netinst\rejointse3.cmd`, ou lancer directement `\\se3\install\os\netinst\rejointse3.cmd`. Le compte à utiliser de préférence pour connecter le lecteur réseau est `adminse3` 
+- sur le poste, en administrateur local, lancer directement `\\se3\install\os\netinst\rejointse3.cmd`. Le compte à utiliser de préférence pour connecter le lecteur réseau est `adminse3` 
+- lors de l'installation, le script propose un nom de machine, et optionnellement d'utiliser sysprep. Si le poste est issu d'un master région tout juste déballé du carton, c'est normalement inutile. En revanche si le poste a déjà servi, c'est conseillé pour bien réinitialiser les comptes locaux et les droits. Si sysprep échoue, vous pouvez recommencer avec l'autre méthode !  
 
-- il est possible renommer un poste déjà intégré : menu dhcp->renommer un poste windows. 
+- il est possible renommer à distance un poste déjà intégré : menu dhcp->renommer un poste windows. 
 
 
 ## Installation automatique 10
@@ -62,17 +63,15 @@ Avec les Windows 10 récents, il s'agit de la seule façon fiable et reproductib
 
 - depuis l'interface clonage avec sysrescued+ntfsclone : choisir seven64, normalement cela doit fonctionner à tout les coups si l'installation initiale est faite par  ce paquet !
 - clonezilla ou autres : non testé, mais il suffit de cloner le poste une fois qu'il a exécuté sysprep. Le retour au domaine sera automatique. Lancer `\\se3\install\os\netinst\rejointse3.cmd` avant le clonage, et lancer la solution de clonage une fois que le poste est préparé.
-- il est possible de cloner des machines différentes, dans la mesure où l'image windows inclut les drivers réseau et disques correspondant aux différents hardwares
+- si le poste a été préparé avec sysprep (par défaut pour Windows 10), il est possible de cloner des machines différentes, dans la mesure où l'image windows inclut les drivers réseau et disques correspondant aux différents hardwares
 
 
 ## À faire
 
 - Il faudrait prévoir une page dans l'interface pour pouvoir définir un partitionnement personnalisé.
-- La mise au domaine et le clonage via sysprep ne fonctionne que si le poste a été correctement installé au départ. Identifier les problèmes et proposer un script de réparation préalable ?
 - Migrer le boot chaîné pxelinux->ipxe vers ipxe uniquement
 - afficher en temps réel les infos sur les opérations d'installation et  de clonage en cours côté serveur
 - gestion des clés de licences Windows dans le cas de migrations ?
-- rendre la mise au domaine moins chatouilleuse.
 - ajouter la possibilité d'ajouter des drivers OEM
 
 
