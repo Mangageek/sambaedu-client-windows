@@ -114,6 +114,10 @@ if exist Z:\scripts\perso.bat (
     echo Pas de commande personnalisee a lancer : pas de script Z:\scripts\perso.bat
 )
 
+::mise en place du mode d'alimentation peformances elevees
+echo Mise en place du plan d'alimentation : performances elevees
+powercfg /s 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+
 :: accepter les drivers non signes
 echo Sous %WINVERS%, on accepte les drivers non signes.
 bcdedit.exe -set loadoptions DISABLE_INTEGRITY_CHECKS
