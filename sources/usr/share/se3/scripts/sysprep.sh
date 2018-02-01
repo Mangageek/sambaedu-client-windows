@@ -79,6 +79,7 @@ smbclient  //$ip/C$ -A /home/netlogon/machine/"$2"/gpoPASSWD << EOF
 	mkdir Netinst
 	mkdir Netinst\logs
 	put $logondir/sysprep.txt Netinst\sysprep.txt
+        put $logondir/action.txt Netinst\action.txt
         cd Netinst
 	lcd $netinst
         prompt OFF
@@ -173,7 +174,7 @@ else
         echo -e "$name\r
 ">$netinst/$ip.txt
         echo -e "$action\r
-">$netinst/action.txt
+">$logondir/action.txt
     sed -e "s/ADMIN=__ADMIN__/ADMIN=$adminname/;s/PASSWD=__PASSWD__/PASSWD=${passadmin}/" $netinst/shutdown.cmd.in >$logondir/shutdown.cmd
     if [ ! -f "$logondir/gpt.ini" ]
     then
