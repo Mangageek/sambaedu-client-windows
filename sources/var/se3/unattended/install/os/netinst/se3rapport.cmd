@@ -5,6 +5,7 @@
 @echo off
 
 set ACTION=%1%
+if [%ACTION%]==[clone] (set ACTION=pre)
 set BILAN=%2%
 
 echo ############### Remontee des rapports pour les actions se3 ##################

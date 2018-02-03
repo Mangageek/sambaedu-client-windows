@@ -3,7 +3,8 @@
 
 if not exist %systemdrive%\netinst (mkdir %systemdrive%\netinst)
 if not exist %systemdrive%\netinst\logs (mkdir %systemdrive%\netinst\logs)
-time /T >>%systemdrive%\netinst\logs\unattend.log
+if not exist %systemdrive%\netinst\logs\unattend.log (echo "debut de la mise au domaine">%systemdrive%\netinst\logs\unattend.log)
+time /T>>%systemdrive%\netinst\logs\unattend.log
 
 :: on tue wpkg en cas de clonage
 
@@ -19,5 +20,5 @@ if exist %systemdrive%\netinst\phase.txt (set /P PHASE=<%systemdrive%\netinst\ph
 set /A "PHASE=PHASE+1"
 echo:%PHASE%>%systemdrive%\netinst\phase.txt
 call %systemdrive%\netinst\se3w10s-%PHASE%.cmd
-echo:%PHASE%>%systemdrive%\netinst\phase.txt
+::echo:%PHASE%>%systemdrive%\netinst\phase.txt
 call  %systemdrive%\netinst\se3rapport.cmd post-%PHASE% y

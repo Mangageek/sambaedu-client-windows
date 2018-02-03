@@ -1,3 +1,11 @@
+sambaedu-client-windows (0.72~) unstable; urgency=medium
+
+  * Correction de la la détection du nom lors d'action à distance
+  * Suppression de l'attente de la remontée du rapport en cas d'intégration ou renommage
+  * possiblilité d'ajout des drivers (expérimental)
+
+ -- Denis Bonnenfant <denis.bonnenfant@sambaedu.org>  Sat, 03 Feb 2018 18:51:51 +0100
+
 sambaedu-client-windows (0.71~) unstable; urgency=medium
 
   * optimisation : pas de sysprep par défaut sur l'intégration manuelle et sur les clonages w7. Ajout de /sysprep pour forçage
