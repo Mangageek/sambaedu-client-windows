@@ -96,6 +96,7 @@ net localgroup Administrateurs adminse3 /add
 net accounts /maxpwage:unlimited
 
 :fin
+if [%ACTION%]==[clone] (del /S /F /Q %systemdrive%\netinst\sysprep.txt)
 call %systemdrive%\netinst\se3rapport.cmd %ACTION% y
 %SystemRoot%\system32\shutdown.exe -r -t 10  -c "Le poste est pret pour l'integration"
 
