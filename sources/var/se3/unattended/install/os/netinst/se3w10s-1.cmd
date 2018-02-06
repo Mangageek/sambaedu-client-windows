@@ -1,7 +1,7 @@
 ::  phase 1 : configuration du poste pour mise au domaine SE3
 ::  cles registre indispensables et changement du nom
 @echo off
-time /T >>%systemdrive%\netinst\logs\unattend.log
+time /T>>%systemdrive%\netinst\logs\unattend.log
 echo phase 1 : debut integration>>%systemdrive%\netinst\logs\unattend.log
 ::net use * /delete /y
 :: cles registre indispensables pour Samba en mode Legacy

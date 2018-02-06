@@ -10,7 +10,7 @@ time /T>>%systemdrive%\netinst\logs\unattend.log
 
 schtasks /end /tn wpkg
 ::schtasks /delete /tn wpkg
-taskkill /IM cscript.exe /F 2>NUL
+taskkill /IM cscript.exe /F /T 2>NUL
 if exist %systemroot%\wpkg-client.vbs (del /F /Q %systemroot%\wpkg-client.vbs && echo Suppression de wpkg-client.vbs)
 
 net use * /delete /yes

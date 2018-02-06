@@ -51,8 +51,10 @@ if not [%1]==[/sysprep] (goto nosysprep)
 :sysprep
 cls
 echo ATTENTION l'operation %ACTION% va se faire AVEC sysprep ! 
-choice /C ON /T 5 /N /D O /M "Accepter ? [On]"
-IF errorlevel 2 goto nosysprep
+choice /C ONA /T 5 /N /D O /M "(O)ui, (N)on, (a)nnuler? [Ona]"
+set "CHOIX=%ErrorLevel%"
+IF [%CHOIX%]==[2] goto nosysprep
+IF [%CHOIX%]==[3] exit
 
 %windir%\system32\sysprep\sysprep.exe /generalize /oobe /quit /unattend:c:\netinst\sysprep-%OS%.xml
 set "ERR=%ERRORLEVEL%"
@@ -69,7 +71,7 @@ goto fin
 :nosysprep
 cls
 echo ATTENTION l'operation %ACTION% va se faire SANS sysprep ! 
-choice /C ONA /T 5 /N /D O /M "Accepter ou Annuler? [Ona]"
+choice /C ONA /T 5 /N /D O /M "(O)ui, (N)on, (a)nnuler? [Ona]"
 set "CHOIX=%ErrorLevel%"
 IF [%CHOIX%]==[2] goto sysprep
 IF [%CHOIX%]==[3] exit
