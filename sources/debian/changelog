@@ -1,4 +1,4 @@
-sambaedu-client-windows (0.72~) unstable; urgency=medium
+sambaedu-client-windows (0.72) unstable; urgency=medium
 
   * Correction de la la détection du nom lors d'action à distance
   * Suppression de l'attente de la remontée du rapport en cas d'intégration ou renommage
