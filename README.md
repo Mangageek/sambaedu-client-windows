@@ -20,7 +20,7 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 
 *Il est possible d'intégrer un poste déjà installé. Néanmoins il est préférable dans la mesure du possible de refaire une installation automatique afin d'être sûr à 100% de la configuration installée.*
 
-- depuis l'interface se3, menu dhcp-> intégrer. Ne fonctionnera que si le poste a déjà l'UAC desactivée.
+- depuis l'interface se3, menu dhcp-> intégrer. __Attention__ Ne fonctionnera que si le poste a déjà l'UAC et les firewalls desactivés.
 - sur le poste, en administrateur local, lancer directement `\\se3\install\os\netinst\rejointse3.cmd`. Le compte à utiliser de préférence pour connecter le lecteur réseau est `adminse3` 
 - lors de l'installation, le script propose un nom de machine, et optionnellement d'utiliser sysprep. Si le poste est issu d'un master région tout juste déballé du carton, c'est normalement inutile. En revanche si le poste a déjà servi, c'est conseillé pour bien réinitialiser les comptes locaux et les droits. Si sysprep échoue, vous pouvez recommencer avec l'autre méthode !  
 
@@ -29,7 +29,7 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 
 ## Installation automatique 10
 
-Avec les Windows 10 récents, il s'agit de la seule façon fiable et reproductible d'installer des postes qui pourront être facilement clonés ensuite. En voulant gagner du temps à réutiliser une installation faite manuellement vous allez en perdre beaucoup à comprendre pourquoi cela ne fonctione pas... 
+Avec les Windows 10 récents, il s'agit de la seule façon fiable et reproductible d'installer des postes qui pourront être facilement clonés ensuite. En voulant gagner du temps à réutiliser une installation faite manuellement vous allez en perdre beaucoup à comprendre pourquoi cela ne fonctionne pas... Si vous voulez cloner ensuite, l'installation automatique est vivement conseillée car le Sysprep nécessaire lors du clonage ne fonctionnera pas tant que le poste ne se sera pas totalement mis à jour, ce qui peut être très long !
 
 ### Prérequis pour une installation totalement automatique à distance
 
@@ -58,6 +58,9 @@ Avec les Windows 10 récents, il s'agit de la seule façon fiable et reproductib
  
  Le fichier /var/unattend/install/os/netinst/unattend.xml devra être modifié en conséquence.
  
+## Pilotes
+
+les pilotes vidéo, son, etc. Peuvent être installés automatiquement lors de l'installation. Il suffit pour cela de les copier dans `z:\\se3\install\os\drivers`. Attention, il ne faut copier QUE les drivers 64  bits Windows 10, c'est à dire le dossier contenant le fichier `.inf`. Les utilitaires divers ne seront pas installés de cette manière.
 
 ## solutions pour le clonage 7 et 10
 
