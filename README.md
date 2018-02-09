@@ -20,6 +20,8 @@ La configuration windows installée est optimisée pour le cas d'usage d'un doma
 
 *Il est possible d'intégrer un poste déjà installé. Néanmoins il est préférable dans la mesure du possible de refaire une installation automatique afin d'être sûr à 100% de la configuration installée.*
 
+__Attention__ il faut absolument utiliser un "vrai" compte administrateur. Après une installation manuelle, le compte administrateur est désactivé, et donc l'intégration ne fonctionnera pas car le compte créé lors de l'installation n'a pas tous les privilèges requis. Il faudra donc commencer par réactiver le compte administrateur... Si vous ne savez pas faire faites une installation automatique !
+
 - depuis l'interface se3, menu dhcp-> intégrer. __Attention__ Ne fonctionnera que si le poste a déjà l'UAC et les firewalls desactivés.
 - sur le poste, en administrateur local, lancer directement `\\se3\install\os\netinst\rejointse3.cmd`. Le compte à utiliser de préférence pour connecter le lecteur réseau est `adminse3` 
 - lors de l'installation, le script propose un nom de machine, et optionnellement d'utiliser sysprep. Si le poste est issu d'un master région tout juste déballé du carton, c'est normalement inutile. En revanche si le poste a déjà servi, c'est conseillé pour bien réinitialiser les comptes locaux et les droits. Si sysprep échoue, vous pouvez recommencer avec l'autre méthode !  
