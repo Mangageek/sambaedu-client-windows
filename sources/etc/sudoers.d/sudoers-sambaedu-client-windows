@@ -1,0 +1,8 @@
+# sudoers file for sambaedu-client-windows
+
+# Cmnd alias specification
+Cmnd_Alias CLIENTWIN=/usr/share/se3/scripts/sysprep.sh
+
+
+www-se3 ALL=NOPASSWD:CLIENTWIN
+

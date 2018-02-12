@@ -1,3 +1,9 @@
+sambaedu-client-windows (0.73~1) unstable; urgency=medium
+
+  * Ajout prise ne compte sysprep.sh par sudo
+
+ -- Denis Bonnenfant <denis.bonnenfant@sambaedu.org>  Sat, 10 Feb 2018 18:51:51 +0100
+
 sambaedu-client-windows (0.72) unstable; urgency=medium
 
   * Correction de la la détection du nom lors d'action à distance
