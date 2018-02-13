@@ -149,7 +149,7 @@ if [ "$action" == "ldap" ]; then
     /usr/share/se3/shares/shares.avail/connexion.sh adminse3 $name $ip $4
 #    /usr/share/se3/sbin/update-csv.sh
 else    
-    if [ "$action" == "rejoint" ]; then
+    if [ "$action" == "rejoint" -o "$action" == "clone" ]; then
         oldname=$name
         mac="$4"
     else
