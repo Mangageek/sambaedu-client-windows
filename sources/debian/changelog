@@ -1,6 +1,7 @@
-sambaedu-client-windows (0.73~1) unstable; urgency=medium
+sambaedu-client-windows (0.73) unstable; urgency=medium
 
-  * Ajout prise ne compte sysprep.sh par sudo
+  * Ajout prise en compte sysprep.sh par sudo
+  * Correction d'une variable en cas de clonage	
 
  -- Denis Bonnenfant <denis.bonnenfant@sambaedu.org>  Sat, 10 Feb 2018 18:51:51 +0100
 
