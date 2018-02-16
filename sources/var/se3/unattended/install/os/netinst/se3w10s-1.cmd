@@ -33,6 +33,11 @@ sc.exe config mrxsmb20 start= disabled
 :: on active smb1   DANGER!!!
 sc.exe config lanmanworkstation depend= bowser/mrxsmb10/nsi
 sc.exe config mrxsmb10 start= auto
+:: necessaire pour W10 > 1709, ne pose pas de probleme pour les versions anterieures
+dism.exe /online /enable-feature /quiet /norestart /featurename:SMB1Protocol
+dism.exe /online /enable-feature /quiet /norestart /featurename:SMB1Protocol-Client
+dism.exe /online /enable-feature /quiet /norestart /featurename:SMB1Protocol-Server
+dism.exe /online /enable-feature /quiet /norestart /featurename:SMB1Protocol-Deprecation
 
 :: on renomme l'ordinateur si besoin : 
 :renomme
