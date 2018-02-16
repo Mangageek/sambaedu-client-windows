@@ -1,6 +1,9 @@
 # sambaedu-client-windows
 Installation et mise au domaine automatique des clients windows.
-**ATTENTION** *Pour les Windows 10 1709 installés depuis janvier, il faut impérativement utiliser une version >= 0.74
+
+**ATTENTION** 
+
+*Pour les Windows 10 1709 installés depuis janvier, il faut impérativement utiliser une version >= 0.74
  du paquet !*
 ## Objectifs
 
