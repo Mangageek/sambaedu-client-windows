@@ -37,7 +37,7 @@ sc.exe config mrxsmb10 start= auto
 dism.exe /online /enable-feature /quiet /norestart /featurename:SMB1Protocol
 dism.exe /online /enable-feature /quiet /norestart /featurename:SMB1Protocol-Client
 dism.exe /online /enable-feature /quiet /norestart /featurename:SMB1Protocol-Server
-dism.exe /online /enable-feature /quiet /norestart /featurename:SMB1Protocol-Deprecation
+dism.exe /online /disable-feature /quiet /norestart /featurename:SMB1Protocol-Deprecation
 
 :: on renomme l'ordinateur si besoin : 
 :renomme
