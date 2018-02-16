@@ -1,7 +1,7 @@
 # sambaedu-client-windows
 Installation et mise au domaine automatique des clients windows.
-
-
+**ATTENTION** *Pour les Windows 10 1709 installés depuis janvier, il faut impérativement utiliser une version >= 0.74
+ du paquet !*
 ## Objectifs
 
 Ce paquet permet l'installation totalement automatisée de Windows 10, la mise au domaine, ainsi que la préparation pré et post-clonage de Windows 7 à 10.
