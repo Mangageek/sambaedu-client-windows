@@ -1,3 +1,9 @@
+sambaedu-client-windows (0.74~) UNRELEASED; urgency=medium
+
+  * Ajout forçage SMB1ProtocolServer pour W10 1709
+
+ -- Denis Bonnenfant <denis.bonnenfant@sambaedu.org>  Fri, 16 Feb 2018 20:04:13 +0100
+
 sambaedu-client-windows (0.73) unstable; urgency=medium
 
   * Ajout prise en compte sysprep.sh par sudo
