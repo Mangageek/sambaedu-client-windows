@@ -1,4 +1,4 @@
-sambaedu-client-windows (0.74~) UNRELEASED; urgency=medium
+sambaedu-client-windows (0.74) UNRELEASED; urgency=medium
 
   * Ajout forçage SMB1ProtocolServer pour W10 1709
 
