@@ -3,7 +3,7 @@
 ### Prérequis : 
 - Un poste Windows 10, si possible au domaine, théoriquement il est aussi possible de faire la procédure depuis un Windows7 64, mais on n'a pas testé.
 - être connecté en administrateur local sur le poste, ou en admin du domaine (compte admin).
-- si il n'est pas déjà connecté,  connecter `y:` sur `\\se3\install` avec le compte `admin`. Attention adminse3 n'a pas les droits suffisants !
+- si il n'est pas déjà connecté,  connecter `Z:` sur `\\se3\install` avec le compte `admin`. Attention adminse3 n'a pas les droits suffisants !
 - un accès rapide à internet ou l'iso W10 déjà téléchargée.
 
 ## Téléchargement
@@ -12,7 +12,7 @@ Lancer  en terminal root sur le se3 :
 ```
 install-win-iso.sh nom_de_iso.iso
 ``` 
-Il est également possible de copier directement les fichiers du DVD sur `y:\os\Win10\`, mais il faut faire attention à bien copier les fichiers cachés et système.
+Il est également possible de copier directement les fichiers du DVD sur `Z:\os\Win10\`, mais il faut faire attention à bien copier les fichiers cachés et système.
 
 ## Injection des pilotes
 
@@ -21,7 +21,7 @@ On ajoute uniquement les drivers indispensables pour l'installation (controleurs
 
 Il faut juste lancer un invite de commande en Administrateur dans lequel on montera au préalable le lecteur z: avec la commande
 ```
-net use y: \\se3\install
+net use Z: \\se3\install
 ```
 **Attention** ceci doit être fait avec un compte admin du se3 (il faut avoir les droits d'écriture sur install). Le compte adminse3 ne fonctionne pas !
 
@@ -34,7 +34,7 @@ Dism /Get-ImageInfo /ImageFile:y:\os\Win10\sources\boot.wim
 ```
 Outil Gestion et maintenance des images de déploiement
 Version : 10.0.15063.0
-Détails pour l’image : y:\os\Win10\sources\boot.wim
+Détails pour l’image : Z:\os\Win10\sources\boot.wim
 Index : 1
 Nom : Microsoft Windows PE (x64)
 Description : Microsoft Windows PE (x64)
@@ -51,7 +51,7 @@ Dans ce cas, deux indexes, si on fait une installation, seul WinPE est indispens
 
 ```
 md %temp%\wim
-Dism /Mount-Image /ImageFile:y:\os\Win10\sources\boot.wim /index:1 /MountDir:%temp%\wim
+Dism /Mount-Image /ImageFile:z:\os\Win10\sources\boot.wim /index:1 /MountDir:%temp%\wim
 ```
 
 3 liste des drivers
