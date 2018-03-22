@@ -62,10 +62,18 @@ Dism /image:%temp%\wim /get-drivers
 
 4 ajout de drivers
 ---
+Pour l'installation, Windows Setup a besoin de pouvoir monter le lecteur réseau pour accéder aux sources. Il faut donc ajouter les pilotes correspondant à la carte réseau. 
+
+* Si le poste est fourni déjà installé le plus simple est de regarder quels pilotes sont installés sur le poste. Sinon on peut booter SysRescueCD et regarder quels drivers Linux installe...
+* télécharger les dernières versions des pilotes réseau chez les constructeurs (Intel, Broadcom, Realtek), ou éventuellement chez HP, Lenovo, Dell...
+* décompresser le pilote dans un dossier temporaire, et repérer le dossier 64 bits contenant le .inf
+* intégrer le driver :
 ```
 Dism /image:%temp%\wim /Add-Driver /Driver:c:\drivers /Recurse
 ```
-attention le chemin indiqué ne doit contenir que les drivers nécessaires sinon l'image va grossir très vite. Indiquer juste le dossier 64 bits contenant le .inf !  Répéter l'opération pour tous les drivers utiles (en général Intel broadcom et Realtek).
+_attention le chemin indiqué ne doit contenir que les drivers nécessaires sinon l'image va grossir très vite. Indiquer juste le dossier 64 bits contenant le .inf identifié précédemment !_  
+
+* Répéter l'opération pour toutes les machines différentes (en général 3 pilotes suffisent, Intel broadcom et Realtek).
 
 5 Démontage de l'image
 ----
@@ -79,7 +87,18 @@ Normalement il n'est pas utile de répéter les opérations pour l'index 2 pour 
 **NOTE :** 
 Sur certaines machines (ex: Lenovo M710S), le driver doit cependant être injecté sur l'index 2 de l'image afin que l'installation automatique puisse se faire.
 
-Vu que le réseau est accessible ensuite on peut aussi passer directement des drivers depuis un partage réseau en utilisant unattended.xml, ce qui évite de charger l'image wim. 
+6 Autres drivers
+---
+Vu que le réseau est accessible ensuite on peut passer les drivers pour le reste du matériel (carte vidéo, son, chipset...) depuis le partage réseau  `z:\os\drivers`. 
+La procédure est la suivante : 
+* Si le poste est fourni déjà installé le plus simple est de regarder quels pilotes sont installés sur le poste. Sinon on peut booter SysRescueCD et regarder quels drivers Linux installe...
+* télécharger les dernières versions des pilotes réseau chez les constructeurs (Intel, Broadcom, Realtek), ou éventuellement chez HP, Lenovo, Dell...
+* décompresser le pilote dans un dossier temporaire, et repérer le dossier 64 bits contenant le .inf
+* copier ce dossier dans `z:\os\drivers`
+_attention le dossier ne doit contenir que les drivers nécessaires sinon l'image va grossir très vite. Indiquer juste le dossier 64 bits contenant le .inf identifié précédemment !_  
+
+* Répéter l'opération pour toutes les machines différentes.
+
  
 ## FAQ
  - le poste reboote  juste après winpeini.shl : les drivers réseau ne sont pas bons. Attention à ne pas en injecter trop, certains sont incompatibles entre eux et vont empêcher le chargement. Il doit y avoir une seule version du driver pour un modèle de carte. Si vous avez un poste du même modèle déjà installé en 7 ou 10, il est possible avec dism de regarder les drivers effectivement chargés : 
