@@ -69,7 +69,7 @@ Pour l'installation, Windows Setup a besoin de pouvoir monter le lecteur réseau
 * décompresser le pilote dans un dossier temporaire, et repérer le dossier 64 bits contenant le .inf
 * intégrer le driver :
 ```
-Dism /image:%temp%\wim /Add-Driver /Driver:c:\drivers /Recurse
+Dism /image:%temp%\wim /Add-Driver /Driver:c:\drivers\mon_driver /Recurse
 ```
 _attention le chemin indiqué ne doit contenir que les drivers nécessaires sinon l'image va grossir très vite. Indiquer juste le dossier 64 bits contenant le .inf identifié précédemment !_  
 
