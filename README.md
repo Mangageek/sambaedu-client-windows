@@ -40,7 +40,7 @@ Avec les Windows 10 récents, il s'agit de la seule façon fiable et reproductib
 ### Prérequis pour une installation totalement automatique à distance
 
 - sources d'installation Windows installées dans z:\os\Win10
-- si besoin, pilotes reseau et disques (uniquement si ccontroleur raid spécifique) injectés dans l'image wim : [préparation de l'image](preparation_image.md#préparation-de-limage-windows-dinstallation)
+- si besoin, pilotes reseau et disques (uniquement si controleur raid spécifique) injectés dans l'image wim : [préparation de l'image](preparation_image.md#préparation-de-limage-windows-dinstallation)
 - postes provisionnés dans l'annuaire:  le triplet nom;ip;mac est renseigné et la machine appartient à un parc.
 - BIOS configurés pour booter en PXE (pas d'UEFI)
 
@@ -50,7 +50,7 @@ Avec les Windows 10 récents, il s'agit de la seule façon fiable et reproductib
 ### prérequis pour une installation automatique devant le poste
 
 - sources d'installation Windows installées dans z:\os\Win10
-- si besoin, pilotes reseau et disques (uniquement si ccontroleur raid spécifique) injectés dans l'image wim [préparation de l'image](preparation_image.md#préparation-de-limage-windows-dinstallation)
+- si besoin, pilotes reseau et disques (uniquement si controleur raid spécifique) injectés dans l'image wim [préparation de l'image](preparation_image.md#préparation-de-limage-windows-dinstallation)
 - BIOS configurés pour booter en PXE (pas d'UEFI)
 - démarrer en pxe et taper "i"
 
