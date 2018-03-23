@@ -7,7 +7,7 @@
 - un accès rapide à internet ou l'iso W10 déjà téléchargée.
 
 ## Téléchargement
-Depuis un poste Windows 10, télécharger l'iso Windows 10 avec l'assistant de creation d'iso et la copier sur y:\os\iso. 
+Télécharger l'iso Windows 10 avec l'assistant de creation d'iso et la copier sur z:\os\iso. 
 Lancer  en terminal root sur le se3 :
 ```
 install-win-iso.sh nom_de_iso.iso
