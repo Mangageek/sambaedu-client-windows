@@ -16,12 +16,13 @@ Il est également possible de copier directement les fichiers du DVD sur `Z:\os\
 
 _A ce stade il est possible de tester le bon fonctionnement de l'installation automatique. si elle échoue au moment du lancement de Windows Setup depuis le réseau, c'est qu'il faut injecter les pilotes réseau dans l'image._
 
-## Injection des pilotes réseau
+## Injection des pilotes réseau si nécessaire
 
-_Pour les machines un peu anciennes (> 2-3 ans), cette étape n'est pas nécessaire, les pilotes sont déjà fournis par W10. Tester une installation !_
+Il est à noter que cette étape n'est pas toujours nécessaire. En effet, les pilotes fournis par W10 étant assez nombreux, il y a de fortes chances que même sur des machines récentes, ces derniers suffisent. **En résumé, il faut tester une installation et vérifier si l'injection de pilotes supplémentaires est nécessaire ou pas !** 
 
+Si vous êtes dans le cas ou vous devez ajouter des pilotes, voici la procédure :
 Une fois l'arborescence de l'iso copiée sur le partage du se3, l'ajout de drivers à l'image se fait depuis un poste W10 64Bits. Aucun outil n'est nécessaire. 
-On ajoute **uniquement** le driver indispensable pour l'installation (carte réseau).
+On ajoute **uniquement** le driver indispensable pour l'installation (carte réseau la plupart du temps).
 
 Il faut juste lancer un invite de commande en Administrateur pour lequel on montera au préalable le lecteur z: avec la commande
 ```

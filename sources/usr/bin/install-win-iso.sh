@@ -8,8 +8,8 @@ mount -o loop  "/var/se3/unattended/install/os/iso/$iso" /mnt/iso
 cp -R /mnt/iso/* /var/se3/unattended/install/os/Win10/
 #chown -R adminse3:admins /var/se3/unattended/install/os/Win10
 chmod 666 /var/se3/unattended/install/os/Win10/sources/boot.wim
-echo "Sources Windows installées. Vous devez maintenant injecter les drivers réseau
-dans l'image de boot avec DISM depuis un poste windows 10" 
+echo "Sources Windows installées. Si votre carte réseau ou le disque ne sont pas reconnus lors de l'installation,
+vous devrez injecter les drivers réseau dans l'image de boot avec DISM depuis un poste windows 10" 
 umount /mnt/iso
 rm -fr /mnt/iso
 
