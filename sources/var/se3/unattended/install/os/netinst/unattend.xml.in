@@ -152,6 +152,11 @@
           <RequiresUserInput>false</RequiresUserInput>
           <CommandLine>reg.exe add "HKey_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /d "%systemdrive%\Netinst\se3w10.cmd" /F</CommandLine>
         </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <Order>5/Order>
+          <Description>pas d'expiration du pass adminse3</Description>
+          <CommandLine>cmd /C wmic useraccount where "name='adminse3'" set PasswordExpires=FALSE</CommandLine>
+        </SynchronousCommand>
       </FirstLogonCommands>
       <TimeZone>Romance Standard Time</TimeZone>
     </component>
