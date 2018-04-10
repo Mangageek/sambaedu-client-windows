@@ -1,3 +1,9 @@
+sambaedu-client-windows (0.75) UNRELEASED; urgency=medium
+
+  * Pas d'expiration passwd adminse3
+
+ -- Denis Bonnenfant <denis.bonnenfant@sambaedu.org>  Thu, 10 Apr 2018 20:04:13 +0200
+
 sambaedu-client-windows (0.74) UNRELEASED; urgency=medium
 
   * Ajout forçage SMB1ProtocolServer pour W10 1709
