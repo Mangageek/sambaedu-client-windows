@@ -28,6 +28,7 @@ Il faut juste lancer un invite de commande en Administrateur pour lequel on mont
 ```
 net use Z: \\se3\install
 ```
+
 **Attention** ceci doit être fait avec un compte admin du se3 (il faut avoir les droits d'écriture sur install). Le compte adminse3 ne fonctionne pas !
 
 1- vérification de l'index du winpe
@@ -65,6 +66,22 @@ Dism /Mount-Image /ImageFile:z:\os\Win10\sources\boot.wim /index:1 /MountDir:%te
 Dism /image:%temp%\wim /get-drivers
 ```
 Sur l'image fraîchement téléchargée, cette commande doit renvoyer "aucun pilote"
+
+ASTUCE : récupération des drivers depuis une installation fonctionnelle
+---
+Si vous voulez directement récupérer les drivers depuis le disque du constructeur, un poste déjà installé, ou lors de la mise à jour de l'image d'installation W10, il faut utiliser la commande `/export-drivers`:
+
+Depuis une image wim montée :
+
+```
+Dism /image:%temp%\wim /export-drivers /destination:c:\drivers
+```
+depuis un poste en fonctionnement: 
+
+```
+Dism /online /export-drivers /destination:c:\drivers
+```
+
 
 4- ajout de drivers
 ---
