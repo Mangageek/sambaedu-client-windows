@@ -6,7 +6,7 @@ Installation et mise au domaine automatique des clients windows.
 *Pour les Windows 10 1709 installés depuis janvier, il faut impérativement utiliser une version >= 0.74
  du paquet !*
  
- * pour le moment il est déconseillé d'installer la version 1804, elle n'a pas été testée*
+*pour le moment il est déconseillé d'installer la version 1804, elle n'a pas été testée*
  
 ## Objectifs
 
