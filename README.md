@@ -57,6 +57,23 @@ Avec les Windows 10 récents, il s'agit de la seule façon fiable et reproductib
 - BIOS configurés pour booter en PXE (pas d'UEFI)
 - démarrer en pxe et taper "i"
 
+Si l'option n'est pas disponible dans le PXE, il faut l'activer :
+- éditer le fichier  `/tftpboot/pxelinux.cfg/install.menu`
+- supprimer les  `###install_win###` des 4 lignes correspondant à l'installation de Windows 10 ;
+- remplacer `###IPSE3###` par l'addresse IP du SE3 ;
+```sh 
+###install_win###label i
+###install_win###    MENU LABEL ^Installation Windows
+###install_win###    kernel ipxe.lkrn
+###install_win###    append dhcp && chain http://###IPSE3###:909/ipxe/boot.php 
+```
+Par exemple :
+```sh 
+label i
+    MENU LABEL ^Installation Windows
+    kernel ipxe.lkrn
+    append dhcp && chain http://172.16.32.2:909/ipxe/boot.php 
+```
 
 ## Personnalisation du partitionnement :
 
