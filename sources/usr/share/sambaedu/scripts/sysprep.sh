@@ -116,8 +116,8 @@ function tryuploadgpo # remotename remotedom
     	                echo "clonage : la machine est prete<br>"
     	            else
     	                # on fait l'enregistrement ldap de la machine et on efface l'ancien si besoin
-                        /usr/share/se3/shares/shares.avail/connexion.sh adminse3 $name $ip $mac
-                        # /usr/share/se3/sbin/update-csv.sh
+                        /usr/share/sambaedu/shares/shares.avail/connexion.sh adminse3 $name $ip $mac
+                        # /usr/share/sambaedu/sbin/update-csv.sh
                     fi
                     /usr/bin/net rpc shutdown -t 30 -r -C "Action $action  : Le poste $oldname ($ip) va etre renomme $name avec $2/$adminname%XXXXXXX " -I $ip -U "$2/$adminname%$passadmin" 
     	            return 0 
@@ -128,7 +128,7 @@ function tryuploadgpo # remotename remotedom
 }
 
 # initialisation des variables
-. /etc/se3/config_m.cache.sh
+. /usr/share/sambaedu/includes/config.inc.sh
 
 action="$1"
 name=$(echo "$2" | tr 'A-Z' 'a-z')
@@ -146,7 +146,7 @@ else
 fi
 if [ "$action" == "ldap" ]; then
     # on enregistre la machine dans la base ldap
-    /usr/share/se3/shares/shares.avail/connexion.sh adminse3 $name $ip $4
+    /usr/share/sambaedu/shares/shares.avail/connexion.sh adminse3 $name $ip $4
 #    /usr/share/se3/sbin/update-csv.sh
 else    
     if [ "$action" == "rejoint" -o "$action" == "clone" ]; then
@@ -157,18 +157,18 @@ else
     fi
 
     # on repere la machine par son iP et on copie les GPO de son ancien nom si elles existent
-    netinst=/var/se3/unattended/install/os/netinst
+    netinst=/var/sambaedu/unattended/install/os/netinst
     logondir="/home/netlogon/machine/$ip"
     [ -f "$logondir" ] && rm -f $logondir
     if [ ! -d "$logondir" ]; then
         mkdir -p $logondir
     fi
-	rm -f $logondir/*
-    /usr/share/se3/logonpy/logon.py adminse3 $ip XP 
-    [ -f /home/netlogon/machine/$oldname ] && rm -f /home/netlogon/machine/$oldname
-    if [ -d "/home/netlogon/machine/$oldname" ]; then 
-	    cp "/home/netlogon/machine/$oldname/*" $logondir
-	fi    
+#	rm -f $logondir/*
+#    /usr/share/se3/logonpy/logon.py adminse3 $ip XP 
+#    [ -f /home/netlogon/machine/$oldname ] && rm -f /home/netlogon/machine/$oldname
+#    if [ -d "/home/netlogon/machine/$oldname" ]; then 
+#	    cp "/home/netlogon/machine/$oldname/*" $logondir
+#	fi    
     echo -e "$name\r
 ">$logondir/sysprep.txt
         echo -e "$name\r
