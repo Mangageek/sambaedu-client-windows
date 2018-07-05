@@ -1,6 +1,6 @@
 :: TODO charger les variables des facon dynamique
-set "SE3_DOMAIN=QUENTINTEST"
-set "NETBIOS_NAME=se4ad"
+set "SE3_DOMAIN=quentintest.com"
+set "NETBIOS_NAME=se4fs"
 set "XPPASS=azerty_0"
 set "SE3IP=192.168.201.12"
 set "URLSE3=http://admin.quentintest.com"

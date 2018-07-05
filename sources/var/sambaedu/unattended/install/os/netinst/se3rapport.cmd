@@ -1,4 +1,4 @@
-:: rapport pour les actions a distance
+﻿:: rapport pour les actions a distance
 :: arguments : 
 :: se3rapport.cmd pre|post y|message_erreur
 

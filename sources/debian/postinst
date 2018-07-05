@@ -20,20 +20,19 @@ set -e
 
 case "$1" in
     configure)
-        . /etc/se3/config_m.cache.sh
-        . /etc/se3/config_c.cache.sh
-	. /usr/share/se3/includes/functions.inc.sh
-	SETMYSQL unattended 1 "installation auto windows" 6
-        /usr/share/se3/sbin/update-share.sh -v -d install || true
-        sed  "s/__SE3_DOMAIN__/$se3_domain/;s/__NETBIOS_NAME__/$netbios_name/;s/__XPPASS__/$xppass/;s/__SE3IP__/$se3ip/;s#__URLSE3__#$urlse3#" \
- /var/se3/unattended/install/os/netinst/se3w10-vars.cmd.in > /var/se3/unattended/install/os/netinst/se3w10-vars.cmd
-        sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/unattend.xml.in > /var/se3/unattended/install/os/netinst/unattend.xml
-        sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/sysprep-7.xml.in > /var/se3/unattended/install/os/netinst/sysprep-7.xml
-        sed  "s/__XPPASS__/$xppass/" /var/se3/unattended/install/os/netinst/sysprep-10.xml.in > /var/se3/unattended/install/os/netinst/sysprep-10.xml
-        rm -fr /var/se3/unattended/install/os/netinst/*.txt
+        . /usr/share/sambaedu/includes/config.inc.sh
+	. /usr/share/sambaedu/includes/utils.inc.sh
+#	SETMYSQL unattended 1 "installation auto windows" 6
+#        /usr/share/se3/sbin/update-share.sh -v -d install || true
+        sed  "s/__SE3_DOMAIN__/$config_samba_domain/;s/__NETBIOS_NAME__/$config_se4ad_name/;s/__XPPASS__/$config_ldap_admin_passwd/;s/__SE3IP__/$config_se4fs_ip/;s#__URLSE3__#http://admin.${config_domain}#" \
+ /var/sambaedu/unattended/install/os/netinst/se3w10-vars.cmd.in > /var/sambaedu/unattended/install/os/netinst/se3w10-vars.cmd
+        sed  "s/__XPPASS__/$config_ldap_admin_passwd/" /var/sambaedu/unattended/install/os/netinst/unattend.xml.in > /var/sambaedu/unattended/install/os/netinst/unattend.xml
+        sed  "s/__XPPASS__/$config_ldap_admin_passwd/" /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml.in > /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml
+        sed  "s/__XPPASS__/$config_ldap_admin_passwd/" /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml.in > /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml
+        rm -fr /var/sambaedu/unattended/install/os/netinst/*.txt
         # ajout mise en place de l'iso 
-        chown -R www-se3:www-data /var/www/se3/ipxe
-        chown -R www-se3:www-data /var/www/se3/tftp
+        chown -R www-admin:www-data /var/www/sambaedu/ipxe
+        chown -R www-admin:www-data /var/www/sambaedu/tftp
         echo "installation ok"
     ;;
 

@@ -78,25 +78,25 @@ IF [%CHOIX%]==[3] exit
 
 reg.exe delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%ComputerName%" /F >NUL
-reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultUserName" /d "adminse3" /F >NUL
+reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultUserName" /d "Administrator" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultPassword" /d "%XPPASS%" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoAdminLogon" /d "1" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoLogonCount" /d "3" /F >NUL
 reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /d "%SystemDrive%\netinst\se3w10.cmd" /F >NUL
-cscript %systemdrive%\netinst\quitte_domaine.vbs /u:"adminse3" /p:"%XPPASS%"
+cscript %systemdrive%\netinst\quitte_domaine.vbs /u:"Administrator" /p:"%XPPASS%"
 
 
-net user | findstr adminse3 >NUL
+net user | findstr Administrator >NUL
 if [%errorlevel%]==[0] (goto fin)
 
-echo creation de adminse3
+echo creation de Administrator
 
-net user adminse3 %XPPASS% /add
-net localgroup Administrateurs adminse3 /add
+net user Administrator %XPPASS% /add
+net localgroup Administrateurs Administrator /add
 
 :fin
 
-wmic useraccount where Name='adminse3' SET PasswordExpires=FALSE
+wmic useraccount where Name='Administrator' SET PasswordExpires=FALSE
 
 if [%ACTION%]==[clone] (del /S /F /Q %systemdrive%\netinst\sysprep.txt)
 call %systemdrive%\netinst\se3rapport.cmd %ACTION% y
