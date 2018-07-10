@@ -1,6 +1,6 @@
-' D'après le script rejoin_se3_XP.vbs de:
+' D'aprï¿½s le script rejoin_se3_XP.vbs de:
 ' Sandrine Dangreville matice creteil
-' Il s'agit de rejoindre un groupe de travail 'tmpse3'
+' Il s'agit de rejoindre un groupe de travail 'tmpse4'
 ' $Id:$
 
 'Option Explicit

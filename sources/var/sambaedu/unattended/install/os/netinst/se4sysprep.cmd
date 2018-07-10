@@ -35,7 +35,7 @@ echo nettoyage gpo locales
 
 del /s /f /q %windir%\system32\grouppolicy\*
 
-call %systemdrive%\netinst\se3w10-vars.cmd
+call %systemdrive%\netinst\se4w10-vars.cmd
 
 :: detection OS
 ver | findstr /i /c:"version 10." >nul
@@ -78,25 +78,25 @@ IF [%CHOIX%]==[3] exit
 
 reg.exe delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%ComputerName%" /F >NUL
-reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultUserName" /d "Administrator" /F >NUL
-reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultPassword" /d "%XPPASS%" /F >NUL
+reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultUserName" /d "ADMINSE_NAME" /F >NUL
+reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultPassword" /d "%ADMINSE_PASSWD%" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoAdminLogon" /d "1" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoLogonCount" /d "3" /F >NUL
-reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /d "%SystemDrive%\netinst\se3w10.cmd" /F >NUL
-cscript %systemdrive%\netinst\quitte_domaine.vbs /u:"Administrator" /p:"%XPPASS%"
+reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SEinstall" /d "%SystemDrive%\netinst\se4w10.cmd" /F >NUL
+cscript %systemdrive%\netinst\quitte_domaine.vbs /u:"%ADMINSE_NAME%" /p:"%ADMINSE_PASSWD%"
 
 
-net user | findstr Administrator >NUL
+net user | findstr %ADMINSE_NAME% >NUL
 if [%errorlevel%]==[0] (goto fin)
 
-echo creation de Administrator
+echo creation de Adminse
 
-net user Administrator %XPPASS% /add
-net localgroup Administrateurs Administrator /add
+net user %ADMINSE_NAME% %ADMINSE_PASS% /add
+net localgroup Administrateurs %ADMINSE_NAME% /add
 
 :fin
 
-wmic useraccount where Name='Administrator' SET PasswordExpires=FALSE
+wmic useraccount where Name='%ADMINSE_NAME%' SET PasswordExpires=FALSE
 
 if [%ACTION%]==[clone] (del /S /F /Q %systemdrive%\netinst\sysprep.txt)
 call %systemdrive%\netinst\se3rapport.cmd %ACTION% y

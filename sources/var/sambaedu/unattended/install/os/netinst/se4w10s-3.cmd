@@ -1,4 +1,4 @@
-﻿:: ce script est lancé en dernier par specialize en Administrator
+﻿:: ce script est lancé en dernier par specialize en Adminse
 
 :: Il permet :
 :: 1. d'installer wpkg sans le lancer puis de lancer l'install complete des applis wpkg lors du reboot suivant
@@ -7,7 +7,7 @@
 @echo off
 
 pushd %SystemDrive%\netinst
-call se3w10-vars.cmd
+call se4w10-vars.cmd
 
 time /T >> logs\unattend.log
 echo specialize phase 3: installation des gpo >> logs\unattend.log
@@ -45,7 +45,7 @@ echo Mappage de la lettre Z: vers \\%NETBIOS_NAME%\install
 if [%Z%]==[] (set "Z=Z:">NUL)
 if [%SOFTWARE%]==[] (set "SOFTWARE=Z:\packages">NUL)
 if [%ComSpec%]==[] (set "ComSpec=%SystemRoot%\system32\cmd.exe">NUL)
-net use Z: \\%NETBIOS_NAME%\install %XPPASS% /user:%SE3_DOMAIN%\Administrator /persistent:no
+net use Z: \\%SE4FS_NAME%\install %ADMINSE_PASSWD% /user:%DOMAIN%\%ADMINSE_NAME% /persistent:no
 
 call %Z%\wpkg\initvars_se3.bat >NUL
 
@@ -57,8 +57,8 @@ if exist %SystemRoot%\wpkg-client.vbs (goto reinstw) else (goto instw)
     ::  cas de clonage/changement de nom...
     echo reinitialisation de wpkg
     Set NoRunWpkgJS=1
-    Set TaskUser=Administrator
-    Set TaskPass=%XPPASS%
+    Set TaskUser=%ADMINSE_NAME%
+    Set TaskPass=%ADMINSE_PASSWD%
     if exist Z:\wpkg\wpkg-repair.bat (copy Z:\wpkg\wpkg-repair.bat %systemdrive%\netinst\wpkg-repair.cmd)
     call %systemdrive%\netinst\wpkg-repair.cmd
     echo.
@@ -69,8 +69,8 @@ if exist %SystemRoot%\wpkg-client.vbs (goto reinstw) else (goto instw)
     :: nouvelle installation : installer la tache wpkg sans la lancer 
     echo Installation de la tache planifiee wpkg sans execution immediate
     Set NoRunWpkgJS=1
-    Set TaskUser=Administrator
-    Set TaskPass=%XPPASS%
+    Set TaskUser=%ADMINSE_NAME%
+    Set TaskPass=%ADMINSE_PASSWD%
     if exist Z:\wpkg\wpkg-install.bat (copy Z:\wpkg\wpkg-install.bat %systemdrive%\netinst\wpkg-install.cmd)
     call %systemdrive%\netinst\wpkg-install.cmd
     echo.
@@ -120,8 +120,8 @@ powershell -ExecutionPolicy ByPass -File tiles.ps1
 
 echo se3 OK>> logs\unattend.log 
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DontDisplayLastUserName" /d "1" /F
-reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%SE3_DOMAIN%" /F
-reg.exe delete "HKey_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /F
+reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%DOMAIN%" /F
+reg.exe delete "HKey_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SEinstall" /F
 reg.exe delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoAdminLogon" /F >NUL
 net use * /delete /yes
 %SystemRoot%\system32\shutdown.exe -r -t 3  -c "Le poste %ComputerName% est pret !"

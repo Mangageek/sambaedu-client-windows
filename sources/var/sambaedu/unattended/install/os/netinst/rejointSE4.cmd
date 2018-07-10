@@ -27,8 +27,8 @@ copy %NETINST%\*.js %systemdrive%\netinst
 copy %NETINST%\*.txt %systemdrive%\netinst
 
 
-echo Execution en mode eleve de se3sysprep.cmd.
+echo Execution en mode eleve de se4sysprep.cmd.
 	
-cscript %systemdrive%\Netinst\execute-elevated.js %systemdrive%\Netinst\se3sysprep.cmd 
+cscript %systemdrive%\Netinst\execute-elevated.js %systemdrive%\Netinst\se4sysprep.cmd 
 ::%SYSPREP%
  

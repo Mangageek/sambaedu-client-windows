@@ -46,7 +46,7 @@
       </ImageInstall>
       <UserData>
         <AcceptEula>true</AcceptEula>
-        <FullName>adminse3</FullName>
+        <FullName>###_ADMINSE_NAME_###</FullName>
         <Organization>SambaEdu</Organization>
         <ProductKey>
           <Key>VK7JG-NPHTM-C97JM-9MPGT-3V66T</Key>
@@ -93,12 +93,12 @@
     <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
       <AutoLogon>
         <Password>
-          <Value>__XPPASS__</Value>
+          <Value>###_ADMINSE_PASSWD_###</Value>
           <PlainText>true</PlainText>
         </Password>
         <Enabled>true</Enabled>
         <LogonCount>3</LogonCount>
-        <Username>adminse3</Username>
+        <Username>###_ADMINSE_NAME_###</Username>
       </AutoLogon>
       <OOBE>
         <HideEULAPage>true</HideEULAPage>
@@ -114,18 +114,18 @@
         <LocalAccounts>
           <LocalAccount wcm:action="add">
             <Password>
-              <Value>__XPPASS__</Value>
+              <Value>###_ADMINSE_PASSWD_###</Value>
               <PlainText>true</PlainText>
             </Password>
-            <Description>Admin local SE3</Description>
-            <DisplayName>adminse3</DisplayName>
+            <Description>Admin local Sambaedu</Description>
+            <DisplayName>###_ADMINSE_NAME_###</DisplayName>
             <Group>Administrators</Group>
-            <Name>adminse3</Name>
+            <Name>###_ADMINSE_NAME_###</Name>
           </LocalAccount>
         </LocalAccounts>
       </UserAccounts>
       <RegisteredOrganization>SambaEdu</RegisteredOrganization>
-      <RegisteredOwner>adminse3</RegisteredOwner>
+      <RegisteredOwner>###_ADMINSE_NAME_###</RegisteredOwner>
       <DisableAutoDaylightTimeSet>false</DisableAutoDaylightTimeSet>
       <FirstLogonCommands>
         <SynchronousCommand wcm:action="add">
@@ -150,13 +150,13 @@
           <Order>4</Order>
           <Description>mise au domaine</Description>
           <RequiresUserInput>false</RequiresUserInput>
-          <CommandLine>reg.exe add "HKey_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /d "%systemdrive%\Netinst\se3w10.cmd" /F</CommandLine>
+          <CommandLine>reg.exe add "HKey_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SEinstall" /d "%systemdrive%\Netinst\se4w10.cmd" /F</CommandLine>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <Order>5</Order>
-          <Description>pas d'expiration du pass adminse3</Description>
+          <Description>pas d'expiration du pass adminse</Description>
           <RequiresUserInput>false</RequiresUserInput>
-          <CommandLine>cmd /C wmic useraccount where "name='adminse3'" set PasswordExpires=FALSE</CommandLine>
+          <CommandLine>cmd /C wmic useraccount where "name='###_ADMINSE_NAME_###'" set PasswordExpires=FALSE</CommandLine>
         </SynchronousCommand>
       </FirstLogonCommands>
       <TimeZone>Romance Standard Time</TimeZone>

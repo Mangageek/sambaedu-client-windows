@@ -1,6 +1,6 @@
 ﻿:: rapport pour les actions a distance
 :: arguments : 
-:: se3rapport.cmd pre|post y|message_erreur
+:: se4rapport.cmd pre|post y|message_erreur
 
 @echo off
 
@@ -40,17 +40,17 @@ echo Heure de fin d'installation se3 et programmes wpkg generee : %FINWIN%
 for /f "delims=\,  tokens=1" %%a in ('getmac /NH /FO csv' )  do (@set MACADDR=%%a)
 echo Adresse MAC de la carte ayant servi a l'install  : %MACADDR%
 if not exist %SystemDrive%\netinst\wget.exe (goto notexistwget)
-	call %SystemDrive%\netinst\se3w10-vars.cmd > NUL
-	echo Recuperation de l'adresse de l'interface SE3 : %urlse3%
+	call %SystemDrive%\netinst\se4w10-vars.cmd > NUL
+	echo Recuperation de l'adresse de l'interface SE3 : %urlse%
 	echo Remontee du rapport d'install sur le SE3...
 	if "%BILAN%"=="y" (goto bilanyes) else (goto bilano)
 	:bilanyes
 		echo Succes total de l'installation transmis au SE3.
-		%SystemDrive%\netinst\wget.exe --no-cache --no-proxy -O %SystemDrive%\netinst\logs\rapport.htm -t 1 %urlse3%/tftp/remontee_udpcast.php?num_op=1^&debut=%DEBUTWIN%^&fin=%FINWIN%^&succes=y^&mac=%MACADDR%^&umode=%ACTION%
+		%SystemDrive%\netinst\wget.exe --no-cache --no-proxy -O %SystemDrive%\netinst\logs\rapport.htm -t 1 %URLSE%/tftp/remontee_udpcast.php?num_op=1^&debut=%DEBUTWIN%^&fin=%FINWIN%^&succes=y^&mac=%MACADDR%^&umode=%ACTION%
 	    goto finbilan
 	:bilano
 	    echo erreur : %BILAN%
-		%SystemDrive%\netinst\wget.exe --no-cache --no-proxy -O %SystemDrive%\netinst\logs\rapport.htm -t 1 %urlse3%/tftp/remontee_udpcast.php?debut=%DEBUTWIN%^&finwin=%FINWIN%^&succes=%BILAN%^&mac=%MACADDR%^&umode=%ACTION%
+		%SystemDrive%\netinst\wget.exe --no-cache --no-proxy -O %SystemDrive%\netinst\logs\rapport.htm -t 1 %URLSE%/tftp/remontee_udpcast.php?debut=%DEBUTWIN%^&finwin=%FINWIN%^&succes=%BILAN%^&mac=%MACADDR%^&umode=%ACTION%
 	:finbilan
 ::	del /F /Q %SystemDrive%\netinst\logs\rapport.htm
 

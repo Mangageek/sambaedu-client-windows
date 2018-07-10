@@ -24,15 +24,17 @@
     <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
       <AutoLogon>
         <Password>
-          <Value>__XPPASS__</Value>
+          <Value>###_ADMINSE_PASSWD_###</Value>
           <PlainText>true</PlainText>
         </Password>
         <Enabled>true</Enabled>
         <LogonCount>3</LogonCount>
-        <Username>adminse3</Username>
+        <Username>###_ADMINSE_NAME_###</Username>
       </AutoLogon>
       <OOBE>
         <HideEULAPage>true</HideEULAPage>
+        <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+        <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
         <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
         <NetworkLocation>Work</NetworkLocation>
         <SkipUserOOBE>true</SkipUserOOBE>
@@ -43,13 +45,13 @@
         <LocalAccounts>
           <LocalAccount wcm:action="add">
             <Password>
-              <Value>__XPPASS__</Value>
+              <Value>###_ADMINSE_PASSWD_###</Value>
               <PlainText>true</PlainText>
             </Password>
             <Description>Admin local SE3</Description>
-            <DisplayName>adminse3</DisplayName>
+            <DisplayName>###_ADMINSE_NAME_###</DisplayName>
             <Group>Administrators</Group>
-            <Name>adminse3</Name>
+            <Name>###_ADMINSE_NAME_###</Name>
           </LocalAccount>
         </LocalAccounts>
       </UserAccounts>
@@ -79,7 +81,7 @@
           <Order>4</Order>
           <Description>mise au domaine</Description>
           <RequiresUserInput>false</RequiresUserInput>
-          <CommandLine>reg.exe add "HKey_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /d "%systemdrive%\Netinst\se3w10.cmd" /F</CommandLine>
+          <CommandLine>reg.exe add "HKey_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SEinstall" /d "%systemdrive%\Netinst\se4w10.cmd" /F</CommandLine>
         </SynchronousCommand>
       </FirstLogonCommands>
       <TimeZone>Romance Standard Time</TimeZone>

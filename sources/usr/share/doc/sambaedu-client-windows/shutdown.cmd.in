@@ -1,4 +1,4 @@
-:: Integration au SE3_DOMAIN : destine a etre lance au premier reboot par les GPO machine après renommage et modif par sysprep.sh
+:: Integration au DOMAIN : destine a etre lance au premier reboot par les GPO machine après renommage et modif par sysprep.sh
 :: ATTENTION le compte utilise DOIT etre membre des administrateurs, et l'UAC doit etre desactivee
 :: 
 :: SYNTAXE :
@@ -12,9 +12,9 @@ pushd %systemdrive%\netinst
 
 :: on prepare le lancement du script de sortie domaine au reboot
 
-reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SE3install" /d "%SystemDrive%\netinst\se3sysprep.cmd" /F >NUL
+reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SEinstall" /d "%SystemDrive%\netinst\se3sysprep.cmd" /F >NUL
 
-:: reboot en tant qu'administrateur, mdp defini par integse3.sh.
+:: reboot en tant qu'administrateur, mdp defini par integse4.sh.
 :: Normalement cela fonctionne avec ce compte, vu qu'il a permis la
 :: connexion sur c$ ?
 :: variables complétées par sysprep.sh lors de l'action à distance

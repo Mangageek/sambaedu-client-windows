@@ -4,7 +4,7 @@
 time /T>>%systemdrive%\netinst\logs\unattend.log
 echo phase 1 : debut integration>>%systemdrive%\netinst\logs\unattend.log
 ::net use * /delete /y
-:: cles registre à supprimer indispensables pour Samba en mode Legacy
+:: cles registre a supprimer indispensables pour Samba en mode Legacy
 
 reg.exe add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /d "0" /t REG_DWORD /F
 reg.exe add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa" /v "ForceGuest" /t REG_DWORD /d "0" /F
@@ -21,9 +21,9 @@ ver | findstr /i /c:"version 10." >nul
 if [%errorlevel%]==[0] (set "OS=10") else (set "OS=7")
 if [%OS%]==[7] (goto renomme)
 
-:: activation smb2/3 sinon rien ne fonctionne...
-:: on active smb2/3
-:: on desactive smb1   DANGER!!!
+:: reactivation smb2/3 sinon rien ne fonctionne...
+:: on reactive smb2/3
+
 powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "& {Set-itemproperty -path "HKLM:\System\CurrentControlSet\Services\LanmanServer\Parameters" SMB1 -Type Dword -Value 0 -Force}"
 powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "& {Set-itemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" SMB2 -Type Dword -Value 1 -Force}"
 powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "& {Set-itemProperty -path "HKLM:\SYSTEM\CurrentControlSet\services\lanmanworkstation" -name "DependOnService" -value "Bowser", "MRxSmb20", "NSI" -type MultiString}"
@@ -41,11 +41,11 @@ dism.exe /online /enable-feature /quiet /norestart /featurename:SMB1Protocol-Dep
 :: on renomme l'ordinateur si besoin : 
 :renomme
 
-call %systemdrive%\netinst\se3w10-vars.cmd
+call %systemdrive%\netinst\se4w10-vars.cmd
 
-net use z: \\%NETBIOS_NAME%\install /user:%SE3_DOMAIN%\Administrator %XPPASS%
+net use z: \\%SE4FS_NAME%\install /user:%DOMAIN%\%ADMINSE_NAME% %ADMINSE_PASSWD%
 
-ping -n 3 %SE3IP%
+ping -n 3 %SE4FS_NAME%
 
 :: recup du nom si il existe
 ::priorite au fichier local

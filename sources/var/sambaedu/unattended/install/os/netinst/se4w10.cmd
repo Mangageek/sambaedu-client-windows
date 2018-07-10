@@ -21,6 +21,6 @@ net use * /delete /yes
 if exist %systemdrive%\netinst\phase.txt (set /P PHASE=<%systemdrive%\netinst\phase.txt)
 set /A "PHASE=PHASE+1"
 echo:%PHASE%>%systemdrive%\netinst\phase.txt
-call %systemdrive%\netinst\se3w10s-%PHASE%.cmd
+call %systemdrive%\netinst\se4w10s-%PHASE%.cmd
 ::echo:%PHASE%>%systemdrive%\netinst\phase.txt
-call  %systemdrive%\netinst\se3rapport.cmd post-%PHASE% y
+call  %systemdrive%\netinst\se4rapport.cmd post-%PHASE% y

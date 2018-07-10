@@ -1,7 +1,6 @@
 ' jonction au domaine compatible seven
-' $Id:$
 ' 
-' joindomain.vbs /d:domaine  /p:password
+' joindomain.vbs /d:domaine /u:user /p:password
 ' 
 'Option Explicit
 Dim oWsh 'Windows Script Host Shell object
@@ -19,12 +18,14 @@ Const DEFERRED_SPN_SET        = 256
 Const INSTALL_INVOCATION      = 262144
 
 Dim strDomain
+Dim strAdminse
 Dim strUser
 Dim strPassword
 
 strDomain = WScript.Arguments.Named("d")
 strPassword = WScript.Arguments.Named("p")
-strUser = strDomain & "\Administrator"
+strAdminse = WScript.Arguments.Named("u")
+strUser = strDomain & \ & strAdminse
 WScript.Echo "Domaine: " & strDomain
 WScript.Echo "Utilisateur: " & strUser
 'WScript.Echo "Password: " & strPassword
@@ -34,7 +35,7 @@ strComputer = objNetwork.ComputerName
 WScript.Echo "ordinateur: " & strComputer
 
 Set objComputer = GetObject("winmgmts:{impersonationLevel=Impersonate}!\\" & strComputer & "\root\cimv2:Win32_ComputerSystem.Name='" & strComputer & "'")
-ReturnValue = objComputer.JoinDomainOrWorkGroup(strDomain, strPassword, strUser, "ou=computers,dc=quentintest,dc=com", JOIN_DOMAIN + ACCT_CREATE)
+ReturnValue = objComputer.JoinDomainOrWorkGroup(strDomain, strPassword, strUser, NULL, JOIN_DOMAIN + ACCT_CREATE)
 
 Select Case ReturnValue
 Case 0 strErrorDescription = "Success"

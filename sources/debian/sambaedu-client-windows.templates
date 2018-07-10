@@ -1,0 +1,9 @@
+Template: sambaedu/adminse_name
+Type: string
+Description: admin local sambaedu
+ nom d'utilisateur administrateur local du poste utilisé pour les opérations de mise au domaine et d'installation auto du poste
+
+Template: sambaedu/adminse_passwd
+Type: password
+Description: mot de passe adminse
+ mot de passe du compte adminse local, qui dispose des droit pour la mise au domaine du poste, ainsi que pour accéder au partage install

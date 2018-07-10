@@ -21,16 +21,54 @@ set -e
 case "$1" in
     configure)
         . /usr/share/sambaedu/includes/config.inc.sh
-	. /usr/share/sambaedu/includes/utils.inc.sh
-#	SETMYSQL unattended 1 "installation auto windows" 6
-#        /usr/share/se3/sbin/update-share.sh -v -d install || true
-        sed  "s/__SE3_DOMAIN__/$config_samba_domain/;s/__NETBIOS_NAME__/$config_se4ad_name/;s/__XPPASS__/$config_ldap_admin_passwd/;s/__SE3IP__/$config_se4fs_ip/;s#__URLSE3__#http://admin.${config_domain}#" \
- /var/sambaedu/unattended/install/os/netinst/se3w10-vars.cmd.in > /var/sambaedu/unattended/install/os/netinst/se3w10-vars.cmd
-        sed  "s/__XPPASS__/$config_ldap_admin_passwd/" /var/sambaedu/unattended/install/os/netinst/unattend.xml.in > /var/sambaedu/unattended/install/os/netinst/unattend.xml
-        sed  "s/__XPPASS__/$config_ldap_admin_passwd/" /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml.in > /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml
-        sed  "s/__XPPASS__/$config_ldap_admin_passwd/" /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml.in > /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml
-        rm -fr /var/sambaedu/unattended/install/os/netinst/*.txt
-        # ajout mise en place de l'iso 
+    	. /usr/share/sambaedu/includes/utils.inc.sh
+        . /usr/share/debconf/confmodule
+
+# recup des identifiants adminse
+
+        db_get sambaedu/adminse_name
+        set_config clients adminse_name "$RET"
+        db_get sambaedu/adminse_passwd
+        set_config clients adminse_passwd "$RET"
+		
+		samba-tool user create $config_adminse_name $config_adminse_passwd -H "ldap://${config_domain}" -U "${config_ldap_admin_name}%${config_ldap_admin_passwd}" || true
+		samba-tool group addmembers "Domain Admins" $config_adminse_name -H "ldap://${config_domain}" -U "${config_ldap_admin_name}%${config_ldap_admin_passwd}" || true 
+
+	    set_config clients urlse "http://admin.${config_domain}"
+
+# variables pour scripts install auto
+
+        if [ ! -e /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd ]; then
+            cp -a /usr/share/doc/sambaedu-client-windows/se4w10-vars.cmd.example /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd
+        fi        
+    write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_domain
+    write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_se4ad_name
+    write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_adminse_name
+	write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_adminse_passwd
+
+#  templates fichiers unattended pour install auto
+#  TODO remplacer ceci par un générateur xml en php.
+
+        if [ ! -e /var/sambaedu/unattended/install/os/netinst/unattend.xml ]; then
+            gunzip -c /usr/share/doc/sambaedu-client-windows/unattend.xml.example.gz >/var/sambaedu/unattended/install/os/netinst/unattend.xml
+        fi        
+    write_param /var/sambaedu/unattended/install/os/netinst/unattend.xml config_adminse_passwd
+	write_param /var/sambaedu/unattended/install/os/netinst/unattend.xml config_adminse_name
+
+        if [ ! -e /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml ]; then
+            gunzip -c /usr/share/doc/sambaedu-client-windows/sysprep-7.xml.example.gz > /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml
+        fi        
+    write_param /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml config_adminse_passwd
+	write_param /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml config_adminse_name
+
+        if [ ! -e /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml ]; then
+            gunzip -c /usr/share/doc/sambaedu-client-windows/sysprep-10.xml.example.gz > /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml
+        fi        
+    write_param /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml config_adminse_passwd
+	write_param /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml config_adminse_name
+
+
+# ajout mise en place de l'iso 
         chown -R www-admin:www-data /var/www/sambaedu/ipxe
         chown -R www-admin:www-data /var/www/sambaedu/tftp
         echo "installation ok"

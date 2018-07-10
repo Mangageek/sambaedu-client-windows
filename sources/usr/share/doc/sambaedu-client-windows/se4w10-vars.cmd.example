@@ -1,0 +1,7 @@
+:: TODO charger les variables des facon dynamique
+set "DOMAIN=###_DOMAIN_###"
+set "SE4AD_NAME=###_SE4AD_NAME_###"
+set "ADMINSE_PASSWD=###_ADMINSE_PASSWD_###"
+set "SE4AD_IP=###_SE4AD_IP_###"
+set "URLSE=###_URLSE_###"
+for /f "tokens=2 delims=[]" %%i in ('nbtstat -a %computername% ^|find "Adresse IP"') do (set "IP=%%i")

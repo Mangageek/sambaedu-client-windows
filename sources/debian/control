@@ -10,7 +10,7 @@ Homepage: <insert the upstream URL, if relevant>
 
 Package: sambaedu-client-windows
 Architecture: all
-Depends: ${misc:Depends}, sambaedu
+Depends: ${misc:Depends}, debconf, sambaedu
 Description: Scripts d'installation automatique de Windows à partir de SambaEdu
  Permet l'installation unattended, le clonage et la jonction au domaine d'un
  poste Windows.

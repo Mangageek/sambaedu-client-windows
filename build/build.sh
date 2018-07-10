@@ -1,39 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
-arg1="$1"
-
-script_dir=$(cd $(dirname "$0"); pwd)
-pkg_name="sambaedu-client-windows"
-
-cd "$script_dir" || {
-    echo "Error, impossible to change directory to $script_dir."
-    echo "End of the script."
-    exit 1
-}
-
-# Remove old *.deb files.
-rm -rf "$script_dir/"*.deb
-
-cp -ra "$script_dir/../sources" "$script_dir/$pkg_name"
-
-if [ "$arg1" = "update-version" ]
-then
-    # Update the version number.
-    commit_id=$(git log --format="%H" -n 1 | sed -r 's/^(.{10}).*$/\1/')
-    epoch=$(date '+%s')
-    # It's better to prefix by "0." to have a version number
-    # lower than the version numbers of the stable and
-    # official releases.
-    version="0.${epoch}~${commit_id}"
-    sed -i -r "s/^Version:.*$/Version: ${version}/" "$script_dir/se3-ocs/DEBIAN/control"
+version="3.9.4"
+if [ -z "$1" ]; then
+	paquet="sambaedu-client-windows"
 fi
-
-cd  "$script_dir/$pkg_name"
-find ./ \( -name *.sh -o -name *.pl -o -name *.py \) -exec chmod +x {} \;
-
-dh_clean
-debuild -uc -us -b
-# Cleaning.
-rm -r "$script_dir/$pkg_name"
-
-
+debs="../${paquet}_${version}*.deb"
+deb=$paquet
+	
+cd ../sources
+rm -f $debs
+dch -U -i ""
+debuild -us -uc -b
+scp -P 2222 $debs root@wawadeb.crdp.ac-caen.fr:/root/se4
+ssh -p 2222 root@wawadeb.crdp.ac-caen.fr "se4/se4.sh $version"
+#ssh root@admin.sambaedu3.maison "apt-get update && apt-get -y upgrade $deb"
+cd
