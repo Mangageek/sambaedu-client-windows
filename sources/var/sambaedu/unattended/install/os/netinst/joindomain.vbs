@@ -25,7 +25,7 @@ Dim strPassword
 strDomain = WScript.Arguments.Named("d")
 strPassword = WScript.Arguments.Named("p")
 strAdminse = WScript.Arguments.Named("u")
-strUser = strDomain & \ & strAdminse
+strUser = strDomain & "\" & strAdminse
 WScript.Echo "Domaine: " & strDomain
 WScript.Echo "Utilisateur: " & strUser
 'WScript.Echo "Password: " & strPassword

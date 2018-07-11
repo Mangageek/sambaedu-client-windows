@@ -46,6 +46,7 @@ case "$1" in
     	write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_adminse_name
 		write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_adminse_passwd
 		write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_se4ad_ip
+		write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_urlse
 	
 
 #  templates fichiers unattended pour install auto

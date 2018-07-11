@@ -82,7 +82,7 @@ IF [%CHOIX%]==[3] exit
 
 reg.exe delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%ComputerName%" /F >NUL
-reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultUserName" /d "ADMINSE_NAME" /F >NUL
+reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultUserName" /d "%ADMINSE_NAME%" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultPassword" /d "%ADMINSE_PASSWD%" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoAdminLogon" /d "1" /F >NUL
 reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoLogonCount" /d "3" /F >NUL
@@ -95,7 +95,7 @@ if [%errorlevel%]==[0] (goto fin)
 
 echo creation de Adminse
 
-net user %ADMINSE_NAME% %ADMINSE_PASS% /add
+net user %ADMINSE_NAME% %ADMINSE_PASSWD% /add
 net localgroup Administrateurs %ADMINSE_NAME% /add
 
 :fin
