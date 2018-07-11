@@ -1,6 +1,7 @@
 :: TODO charger les variables des facon dynamique
 set "DOMAIN=###_DOMAIN_###"
 set "SE4AD_NAME=###_SE4AD_NAME_###"
+set "ADMINSE_NAME=###_ADMINSE_NAME_###"
 set "ADMINSE_PASSWD=###_ADMINSE_PASSWD_###"
 set "SE4AD_IP=###_SE4AD_IP_###"
 set "URLSE=###_URLSE_###"

@@ -9,8 +9,8 @@ net use * /delete /yes
 
 :integ
 echo on attend un peu avant d'integrer le poste...
-ping -n 10 %SE4AD_IP%
-cscript joindomain.vbs /d:"%DOMAIN%" /u:"%ADMINSE_NAME" /p:"%ADMINSE_PASSWD%" 
+ping -n 10 %SE4AD_NAME%
+cscript joindomain.vbs /d:"%DOMAIN%" /u:"%ADMINSE_NAME%" /p:"%ADMINSE_PASSWD%" 
 set "ERR=%errorlevel%"
 if [%ERR%]==[0] (goto ok)
 echo ERREUR %ERR% LORS DE LA JONCTION A %DOMAIN% >> logs\unattend.log

@@ -12,6 +12,10 @@ if [%~dp0]==[z:\os\netinst] (
    exit 1
 ) 
 
+ipconfig /release
+ipconfig /renew
+
+
 REG.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d "0" /F
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 set "ERR=%ERRORLEVEL%"

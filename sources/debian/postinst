@@ -41,10 +41,12 @@ case "$1" in
         if [ ! -e /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd ]; then
             cp -a /usr/share/doc/sambaedu-client-windows/se4w10-vars.cmd.example /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd
         fi        
-    write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_domain
-    write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_se4ad_name
-    write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_adminse_name
-	write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_adminse_passwd
+	    write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_domain
+    	write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_se4ad_name
+    	write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_adminse_name
+		write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_adminse_passwd
+		write_param /var/sambaedu/unattended/install/os/netinst/se4w10-vars.cmd config_se4ad_ip
+	
 
 #  templates fichiers unattended pour install auto
 #  TODO remplacer ceci par un générateur xml en php.
@@ -52,20 +54,20 @@ case "$1" in
         if [ ! -e /var/sambaedu/unattended/install/os/netinst/unattend.xml ]; then
             gunzip -c /usr/share/doc/sambaedu-client-windows/unattend.xml.example.gz >/var/sambaedu/unattended/install/os/netinst/unattend.xml
         fi        
-    write_param /var/sambaedu/unattended/install/os/netinst/unattend.xml config_adminse_passwd
-	write_param /var/sambaedu/unattended/install/os/netinst/unattend.xml config_adminse_name
+    	write_param /var/sambaedu/unattended/install/os/netinst/unattend.xml config_adminse_passwd
+		write_param /var/sambaedu/unattended/install/os/netinst/unattend.xml config_adminse_name
 
         if [ ! -e /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml ]; then
             gunzip -c /usr/share/doc/sambaedu-client-windows/sysprep-7.xml.example.gz > /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml
         fi        
-    write_param /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml config_adminse_passwd
-	write_param /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml config_adminse_name
+    	write_param /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml config_adminse_passwd
+		write_param /var/sambaedu/unattended/install/os/netinst/sysprep-7.xml config_adminse_name
 
         if [ ! -e /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml ]; then
             gunzip -c /usr/share/doc/sambaedu-client-windows/sysprep-10.xml.example.gz > /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml
         fi        
-    write_param /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml config_adminse_passwd
-	write_param /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml config_adminse_name
+    	write_param /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml config_adminse_passwd
+		write_param /var/sambaedu/unattended/install/os/netinst/sysprep-10.xml config_adminse_name
 
 
 # ajout mise en place de l'iso 
